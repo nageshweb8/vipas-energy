@@ -8,10 +8,10 @@ export function RoutePlaceholder({
   description,
 }: RoutePlaceholderProps) {
   return (
-    <main className="bg-background min-h-[100dvh] px-6 py-16">
-      <section className="border-border-default bg-card mx-auto grid w-full max-w-3xl gap-4 rounded-3xl border p-8 shadow-sm sm:p-10">
-        <p className="text-muted-foreground text-sm font-medium tracking-[0.2em] uppercase">
-          Route Placeholder
+    <main className="mx-auto flex w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+      <section className="border-border-default bg-card grid w-full gap-4 rounded-xl border p-8 shadow-sm sm:p-10">
+        <p className="text-muted-foreground text-sm font-semibold tracking-[0.16em] uppercase">
+          Coming Next
         </p>
         <h1 className="text-brand-secondary text-3xl font-semibold tracking-tight sm:text-4xl">
           {title}
