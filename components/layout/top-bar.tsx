@@ -1,9 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   Bell,
   CalendarDays,
   ChevronDown,
+  LogOut,
   Menu,
   MessageSquareText,
   Moon,
@@ -22,17 +25,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearSession } from "@/store/slices/authSlice";
 import { setAssistantOpen, toggleTheme } from "@/store/slices/uiSlice";
 
 interface TopBarProps {
   onMenuClick: () => void;
 }
 
+const SESSION_KEY = "vipas_session";
+
 export function TopBar({ onMenuClick }: TopBarProps) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const dateRange = useAppSelector((state) => state.ui.dateRange);
   const theme = useAppSelector((state) => state.ui.theme);
   const user = useAppSelector((state) => state.auth.user);
+
+  function handleSignOut() {
+    try {
+      sessionStorage.removeItem(SESSION_KEY);
+    } catch {
+      // ignore if sessionStorage is unavailable
+    }
+    dispatch(clearSession());
+    router.replace("/login");
+  }
   const displayInitials =
     user.initials.replace(/\s+/g, "").slice(0, 2).toUpperCase() ||
     user.name
@@ -140,6 +157,16 @@ export function TopBar({ onMenuClick }: TopBarProps) {
               <DropdownMenuItem>Account profile</DropdownMenuItem>
               <DropdownMenuItem>Workspace settings</DropdownMenuItem>
               <DropdownMenuItem>Notification preferences</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={handleSignOut}
+                className="text-danger focus:bg-danger/10 focus:text-danger gap-2"
+              >
+                <LogOut className="size-4" aria-hidden="true" />
+                Sign out
+              </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
