@@ -22,19 +22,19 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint |
-| `npm run type-check` | TypeScript check |
-| `npm run format:check` | Prettier check |
-| `npm run format` | Prettier write |
+| Command                | Purpose                  |
+| ---------------------- | ------------------------ |
+| `npm run dev`          | Start development server |
+| `npm run build`        | Production build         |
+| `npm run lint`         | ESLint                   |
+| `npm run type-check`   | TypeScript check         |
+| `npm run format:check` | Prettier check           |
+| `npm run format`       | Prettier write           |
 
 ## Environment Variables
 
-| Variable | Description |
-| --- | --- |
+| Variable                   | Description                          |
+| -------------------------- | ------------------------------------ |
 | `NEXT_PUBLIC_API_BASE_URL` | Base URL for all RTK Query API calls |
 
 Create a `.env.local` file at the project root and set the variable above before running the app against a live backend.

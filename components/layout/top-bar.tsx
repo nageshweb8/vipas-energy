@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -29,6 +30,14 @@ export function TopBar({ onMenuClick }: TopBarProps) {
   const dispatch = useAppDispatch();
   const dateRange = useAppSelector((state) => state.ui.dateRange);
   const user = useAppSelector((state) => state.auth.user);
+  const displayInitials =
+    user.initials.replace(/\s+/g, "").slice(0, 2).toUpperCase() ||
+    user.name
+      .split(" ")
+      .map((part) => part[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
 
   return (
     <header className="border-border-default bg-surface-white sticky top-0 z-30 flex h-[73px] items-center justify-between gap-3 border-b px-4 sm:px-6 lg:px-8">
@@ -92,31 +101,29 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         </Button>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="hover:bg-brand-mint flex min-w-0 items-center gap-2 rounded-lg px-1.5 py-1 transition">
+          <DropdownMenuTrigger className="hover:bg-brand-mint focus-visible:ring-border-default flex size-12 items-center justify-center rounded-full p-1 outline-hidden transition focus-visible:ring-2">
             <Avatar className="size-10">
-              <AvatarFallback className="font-semibold">
-                {user.initials}
+              <AvatarFallback className="text-base font-semibold">
+                {displayInitials}
               </AvatarFallback>
             </Avatar>
-            <span className="hidden min-w-0 text-left lg:block">
-              <span className="text-brand-secondary block truncate text-sm font-semibold">
-                {user.name}
-              </span>
-              <span className="text-muted-foreground block truncate text-xs">
-                {user.company}
-              </span>
-            </span>
-            <ChevronDown
-              className="text-muted-foreground hidden size-4 lg:block"
-              aria-hidden="true"
-            />
+            <span className="sr-only">Open account menu</span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>{user.company}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Account profile</DropdownMenuItem>
-            <DropdownMenuItem>Workspace settings</DropdownMenuItem>
-            <DropdownMenuItem>Notification preferences</DropdownMenuItem>
+          <DropdownMenuContent align="end" className="w-64">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="px-2 py-1.5">
+                <span className="text-brand-secondary block truncate text-sm font-semibold">
+                  {user.name}
+                </span>
+                <span className="text-muted-foreground block truncate text-xs">
+                  {user.company}
+                </span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Account profile</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+              <DropdownMenuItem>Notification preferences</DropdownMenuItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
