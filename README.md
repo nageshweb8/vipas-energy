@@ -1,34 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vipas Energy Navigator
+
+A production-ready frontend for the Vipas Energy private authenticated admin portal.
+
+## Tech Stack
+
+- **Next.js** App Router
+- **React 19** / **TypeScript** strict mode
+- **Tailwind CSS v4** + **shadcn/ui**
+- **Redux Toolkit** + **RTK Query**
+- **Apache ECharts**
+- **lucide-react**
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-## Learn More
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm run type-check` | TypeScript check |
+| `npm run format:check` | Prettier check |
+| `npm run format` | Prettier write |
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_API_BASE_URL` | Base URL for all RTK Query API calls |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create a `.env.local` file at the project root and set the variable above before running the app against a live backend.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  (auth)/login/         # Login route
+  (dashboard)/          # Authenticated dashboard routes
+    demand/
+    supply/
+    rate-tariff/
+    carbon/
+    subscriptions/
+    account/
+components/
+  ui/                   # shadcn/ui primitives
+  shared/               # Shared layout helpers
+store/
+  slices/               # Redux state slices
+  api/                  # RTK Query base API
+lib/
+  tokens.ts             # Brand design tokens
+```
