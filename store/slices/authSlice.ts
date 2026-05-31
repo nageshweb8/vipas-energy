@@ -3,15 +3,19 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { AuthUser } from "@/types/auth";
 
 export interface AuthState {
-  token: string | null;
-  user: AuthUser | null;
+  token: string;
+  user: AuthUser;
   status: "anonymous" | "authenticated";
 }
 
 const initialState: AuthState = {
-  token: null,
-  user: null,
-  status: "anonymous",
+  token: "demo-token",
+  user: {
+    name: "Nagesh Ch",
+    initials: "NC",
+    company: "Vipas Energy",
+  },
+  status: "authenticated",
 };
 
 const authSlice = createSlice({

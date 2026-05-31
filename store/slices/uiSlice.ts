@@ -1,26 +1,53 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface UiState {
-  isNavigationOpen: boolean;
+export interface DateRange {
+  from: string;
+  to: string;
+}
+
+export interface UiState {
+  sidebarCollapsed: boolean;
+  assistantOpen: boolean;
+  dateRange: DateRange;
 }
 
 const initialState: UiState = {
-  isNavigationOpen: false,
+  sidebarCollapsed: false,
+  assistantOpen: false,
+  dateRange: {
+    from: "2026-05-01",
+    to: "2026-05-31",
+  },
 };
 
 const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setNavigationOpen: (state, action: PayloadAction<boolean>) => {
-      state.isNavigationOpen = action.payload;
+    setSidebarCollapsed: (state, action: PayloadAction<boolean>) => {
+      state.sidebarCollapsed = action.payload;
     },
-    toggleNavigation: (state) => {
-      state.isNavigationOpen = !state.isNavigationOpen;
+    toggleSidebarCollapsed: (state) => {
+      state.sidebarCollapsed = !state.sidebarCollapsed;
+    },
+    setAssistantOpen: (state, action: PayloadAction<boolean>) => {
+      state.assistantOpen = action.payload;
+    },
+    toggleAssistantOpen: (state) => {
+      state.assistantOpen = !state.assistantOpen;
+    },
+    setDateRange: (state, action: PayloadAction<DateRange>) => {
+      state.dateRange = action.payload;
     },
   },
 });
 
-export const { setNavigationOpen, toggleNavigation } = uiSlice.actions;
+export const {
+  setSidebarCollapsed,
+  toggleSidebarCollapsed,
+  setAssistantOpen,
+  toggleAssistantOpen,
+  setDateRange,
+} = uiSlice.actions;
 
 export default uiSlice.reducer;
