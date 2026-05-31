@@ -10,7 +10,7 @@ import { feature, mesh } from "topojson-client";
 import type { GeometryCollection, Topology } from "topojson-specification";
 import usStatesTopology from "us-atlas/states-10m.json";
 
-import { brandColors, statusColors } from "@/lib/tokens";
+import { statusColors } from "@/lib/tokens";
 import type { EnergySite, EnergySiteStatus } from "@/types/dashboard";
 
 interface SiteMapChartProps {
@@ -113,8 +113,8 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
   return (
     <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_15rem]">
       <div className="border-border-default from-brand-mint/45 via-surface-white to-surface-bg relative overflow-hidden rounded-xl border bg-gradient-to-br shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/80 to-transparent" />
-        <div className="text-brand-secondary pointer-events-none absolute top-4 left-4 z-10 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm">
+        <div className="from-surface-white/80 absolute inset-x-0 top-0 h-24 bg-gradient-to-b to-transparent" />
+        <div className="text-brand-secondary bg-surface-white/80 pointer-events-none absolute top-4 left-4 z-10 rounded-full px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm">
           United States portfolio footprint
         </div>
 
@@ -132,8 +132,16 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
               x2="100%"
               y2="100%"
             >
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.94" />
-              <stop offset="100%" stopColor="#F8FAFB" stopOpacity="1" />
+              <stop
+                offset="0%"
+                stopColor="var(--surface-white)"
+                stopOpacity="0.94"
+              />
+              <stop
+                offset="100%"
+                stopColor="var(--surface-bg)"
+                stopOpacity="1"
+              />
             </linearGradient>
           </defs>
 
@@ -148,8 +156,8 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
           {nationOutlinePath && (
             <path
               d={nationOutlinePath}
-              fill="#F6FBF9"
-              stroke={brandColors.border}
+              fill="var(--brand-mint)"
+              stroke="var(--border-default)"
               strokeWidth="1.2"
               strokeLinejoin="round"
             />
@@ -166,9 +174,9 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
               <path
                 key={stateFeature.id ?? `state-${index}`}
                 d={statePath}
-                fill={brandColors.mint}
+                fill="var(--brand-mint)"
                 fillOpacity="0.42"
-                stroke="#EAF1F4"
+                stroke="var(--border-default)"
                 strokeWidth="0.7"
               />
             );
@@ -178,7 +186,7 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
             <path
               d={stateBorderPath}
               fill="none"
-              stroke="#D9E4EA"
+              stroke="var(--border-default)"
               strokeWidth="0.8"
               strokeLinejoin="round"
             />
@@ -236,14 +244,10 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
                 <circle
                   r="7.5"
                   fill={projectedSite.color}
-                  stroke={brandColors.surfaceWhite}
+                  stroke="var(--surface-white)"
                   strokeWidth="3"
                 />
-                <circle
-                  r="3"
-                  fill={brandColors.surfaceWhite}
-                  fillOpacity="0.96"
-                />
+                <circle r="3" fill="var(--surface-white)" fillOpacity="0.96" />
               </g>
             );
           })}

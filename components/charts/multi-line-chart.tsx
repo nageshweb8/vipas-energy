@@ -1,31 +1,42 @@
 "use client";
 
-import type { EChartsOption } from "echarts";
+import type { EChartsOption, LineSeriesOption } from "echarts";
 
 import { BaseChart } from "@/components/charts/base-chart";
 import { getChartTheme } from "@/components/charts/chart-theme";
 import { useAppSelector } from "@/store/hooks";
-import type { DemandTrendPoint } from "@/types/demand";
 
-interface DemandTrendChartProps {
-  data: DemandTrendPoint[];
+export interface ChartLineSeries {
+  name: string;
+  values: number[];
+  color: string;
+  dashed?: boolean | undefined;
+  area?: boolean | undefined;
 }
 
-export function DemandTrendChart({ data }: DemandTrendChartProps) {
+interface MultiLineChartProps {
+  labels: string[];
+  series: ChartLineSeries[];
+  yAxisName: string;
+  height?: number;
+}
+
+export function MultiLineChart({
+  labels,
+  series,
+  yAxisName,
+  height = 300,
+}: MultiLineChartProps) {
   const appTheme = useAppSelector((state) => state.ui.theme);
   const chartTheme = getChartTheme(appTheme);
-  const labels = data.map((point) => point.label);
-  const actual = data.map((point) => point.actual);
-  const forecast = data.map((point) => point.forecast);
-  const previous = data.map((point) => point.previous);
 
   const option: EChartsOption = {
-    color: [chartTheme.primary, chartTheme.info, chartTheme.neutral],
+    color: series.map((item) => item.color),
     grid: {
       top: 42,
       right: 18,
       bottom: 34,
-      left: 38,
+      left: 42,
     },
     legend: {
       top: 2,
@@ -62,12 +73,11 @@ export function DemandTrendChart({ data }: DemandTrendChartProps) {
       axisLabel: {
         color: chartTheme.muted,
         fontFamily: "Montserrat",
-        interval: 1,
       },
     },
     yAxis: {
       type: "value",
-      name: "MWh",
+      name: yAxisName,
       nameTextStyle: {
         color: chartTheme.text,
         fontFamily: "Montserrat",
@@ -85,45 +95,32 @@ export function DemandTrendChart({ data }: DemandTrendChartProps) {
         fontFamily: "Montserrat",
       },
     },
-    series: [
-      {
-        name: "Actual Demand",
-        type: "line",
+    series: series.map((item): LineSeriesOption => {
+      const lineSeries: LineSeriesOption = {
+        name: item.name,
+        type: "line" as const,
         smooth: true,
-        data: actual,
-        symbolSize: 5,
+        data: item.values,
+        symbolSize: item.dashed ? 0 : 5,
         lineStyle: {
-          width: 3,
+          width: item.dashed ? 2 : 3,
+          type: item.dashed ? "dashed" : "solid",
         },
+      };
+
+      if (!item.area) {
+        return lineSeries;
+      }
+
+      return {
+        ...lineSeries,
         areaStyle: {
-          color: chartTheme.primary,
+          color: item.color,
           opacity: 0.08,
         },
-      },
-      {
-        name: "Forecast",
-        type: "line",
-        smooth: true,
-        data: forecast,
-        symbolSize: 0,
-        lineStyle: {
-          width: 2,
-          type: "dashed",
-        },
-      },
-      {
-        name: "Previous Period",
-        type: "line",
-        smooth: true,
-        data: previous,
-        symbolSize: 0,
-        lineStyle: {
-          width: 1.5,
-          color: chartTheme.grid,
-        },
-      },
-    ],
+      };
+    }),
   };
 
-  return <BaseChart option={option} height={300} />;
+  return <BaseChart option={option} height={height} />;
 }

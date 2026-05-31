@@ -1,10 +1,5 @@
-import { RoutePlaceholder } from "@/components/shared/route-placeholder";
+import { RateTariffPage } from "@/components/rate-tariff/rate-tariff-page";
 
-export default function RateTariffPlaceholderPage() {
-  return (
-    <RoutePlaceholder
-      title="Rate & Tariff"
-      description="Placeholder route for the future rate and tariff module. Final UI, filters, and pricing data integrations are not added in this step."
-    />
-  );
+export default function RateTariffPageRoute() {
+  return <RateTariffPage />;
 }

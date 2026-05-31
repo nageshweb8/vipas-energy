@@ -9,6 +9,17 @@ export const brandColors = {
   mutedText: "#757575",
 } as const;
 
+export const darkBrandColors = {
+  primary: "#00A176",
+  secondary: "#E8F8F3",
+  text: "#DDE8ED",
+  mint: "#103A34",
+  surfaceBg: "#071D2E",
+  surfaceWhite: "#0D2940",
+  border: "rgba(248, 250, 251, 0.14)",
+  mutedText: "#B7C5CE",
+} as const;
+
 export const statusColors = {
   success: "#00A176",
   warning: "#F59E0B",

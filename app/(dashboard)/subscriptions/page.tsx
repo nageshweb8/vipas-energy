@@ -1,10 +1,5 @@
-import { RoutePlaceholder } from "@/components/shared/route-placeholder";
+import { SubscriptionsSettingsPage } from "@/components/subscriptions/subscriptions-settings-page";
 
-export default function SubscriptionsPlaceholderPage() {
-  return (
-    <RoutePlaceholder
-      title="Subscriptions & Settings"
-      description="Placeholder route for future subscription, connector, and settings flows. No business configuration UI is implemented yet."
-    />
-  );
+export default function SubscriptionsPage() {
+  return <SubscriptionsSettingsPage />;
 }

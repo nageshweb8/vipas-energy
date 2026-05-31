@@ -1,10 +1,5 @@
-import { RoutePlaceholder } from "@/components/shared/route-placeholder";
+import { ManageAccountPage } from "@/components/account/manage-account-page";
 
-export default function AccountPlaceholderPage() {
-  return (
-    <RoutePlaceholder
-      title="Manage Account"
-      description="Placeholder route for the future account and profile area. This route currently exists only to establish navigation targets."
-    />
-  );
+export default function AccountPage() {
+  return <ManageAccountPage />;
 }

@@ -113,6 +113,13 @@
 }
 
 .dark {
+  --brand-secondary: #e8f8f3;
+  --brand-text: #dde8ed;
+  --brand-mint: #103a34;
+  --surface-bg: #071d2e;
+  --surface-white: #0d2940;
+  --border-default: rgba(248, 250, 251, 0.14);
+  --text-muted: #b7c5ce;
   --background: #071d2e;
   --foreground: #f8fafb;
   --card: #0d2940;
@@ -120,7 +127,7 @@
   --popover: #0d2940;
   --popover-foreground: #f8fafb;
   --primary: var(--brand-primary);
-  --primary-foreground: var(--surface-white);
+  --primary-foreground: #ffffff;
   --secondary: #103553;
   --secondary-foreground: var(--surface-white);
   --muted: #143952;

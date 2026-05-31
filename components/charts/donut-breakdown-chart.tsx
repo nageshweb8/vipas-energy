@@ -6,30 +6,39 @@ import { BaseChart } from "@/components/charts/base-chart";
 import { getChartTheme } from "@/components/charts/chart-theme";
 import { brandColors, chartColors } from "@/lib/tokens";
 import { useAppSelector } from "@/store/hooks";
-import type { DemandSiteBreakdown } from "@/types/demand";
 
-interface DemandBySiteChartProps {
-  data: DemandSiteBreakdown[];
-  totalLabel: string;
+export interface DonutSegment {
+  name: string;
+  value: number;
+  label: string;
 }
 
-const sitePalette: string[] = [
+interface DonutBreakdownChartProps {
+  segments: DonutSegment[];
+  centerLabel: string;
+  centerSubtext: string;
+  height?: number;
+}
+
+const segmentPalette: string[] = [
   chartColors.primary,
   chartColors.info,
   chartColors.accent,
-  chartColors.neutral,
+  chartColors.warning,
   brandColors.border,
 ];
 
-export function DemandBySiteChart({
-  data,
-  totalLabel,
-}: DemandBySiteChartProps) {
+export function DonutBreakdownChart({
+  segments,
+  centerLabel,
+  centerSubtext,
+  height = 260,
+}: DonutBreakdownChartProps) {
   const appTheme = useAppSelector((state) => state.ui.theme);
   const chartTheme = getChartTheme(appTheme);
 
   const option: EChartsOption = {
-    color: sitePalette,
+    color: segmentPalette,
     tooltip: {
       trigger: "item",
       borderWidth: 0,
@@ -40,14 +49,14 @@ export function DemandBySiteChart({
       },
     },
     title: {
-      text: totalLabel,
-      subtext: "MWh\nTotal",
+      text: centerLabel,
+      subtext: centerSubtext,
       left: "center",
       top: "39%",
       textStyle: {
         color: chartTheme.text,
         fontFamily: "Montserrat",
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 700,
       },
       subtextStyle: {
@@ -59,28 +68,28 @@ export function DemandBySiteChart({
     },
     series: [
       {
-        name: "Demand by Site",
+        name: "Breakdown",
         type: "pie",
-        radius: ["64%", "88%"],
+        radius: ["62%", "86%"],
         center: ["50%", "52%"],
-        avoidLabelOverlap: true,
         label: {
           show: false,
         },
         labelLine: {
           show: false,
         },
-        data: data.map((site, index) => ({
-          name: site.name,
-          value: site.demandMwh,
+        data: segments.map((segment, index) => ({
+          name: segment.name,
+          value: segment.value,
           itemStyle: {
             color:
-              sitePalette[index % sitePalette.length] ?? chartColors.neutral,
+              segmentPalette[index % segmentPalette.length] ??
+              chartColors.neutral,
           },
         })),
       },
     ],
   };
 
-  return <BaseChart option={option} height={290} />;
+  return <BaseChart option={option} height={height} />;
 }
