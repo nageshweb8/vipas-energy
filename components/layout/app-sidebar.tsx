@@ -18,7 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 
-import logoMark from "@/docs/Vipas Files/Final Logo Files/Vipas Energy Final Logo Transparant.png";
+import logoMark from "@/public/brand/vipas-energy-logo.png";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
