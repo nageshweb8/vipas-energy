@@ -1,0 +1,71 @@
+"use client";
+
+import { useState } from "react";
+
+import { VipasAssistant } from "@/components/ai/vipas-assistant";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { TopBar } from "@/components/layout/top-bar";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  setAssistantOpen,
+  toggleSidebarCollapsed,
+} from "@/store/slices/uiSlice";
+import { cn } from "@/lib/utils";
+
+interface DashboardShellProps {
+  children: React.ReactNode;
+}
+
+export function DashboardShell({ children }: DashboardShellProps) {
+  const dispatch = useAppDispatch();
+  const sidebarCollapsed = useAppSelector((state) => state.ui.sidebarCollapsed);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const openAssistant = () => {
+    dispatch(setAssistantOpen(true));
+  };
+
+  return (
+    <div
+      className={cn(
+        "bg-surface-bg text-brand-text min-h-screen lg:grid",
+        sidebarCollapsed
+          ? "lg:grid-cols-[5.25rem_minmax(0,1fr)]"
+          : "lg:grid-cols-[16rem_minmax(0,1fr)]",
+      )}
+    >
+      <AppSidebar
+        collapsed={sidebarCollapsed}
+        className="hidden lg:flex"
+        onAskAssistant={openAssistant}
+        onToggleCollapsed={() => dispatch(toggleSidebarCollapsed())}
+      />
+
+      {mobileNavOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="Close navigation"
+            className="absolute inset-0 bg-black/20"
+            onClick={() => setMobileNavOpen(false)}
+          />
+          <div className="relative h-full w-[18rem] max-w-[85vw]">
+            <AppSidebar
+              collapsed={false}
+              onAskAssistant={openAssistant}
+              onNavigate={() => setMobileNavOpen(false)}
+              onToggleCollapsed={() => setMobileNavOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="min-w-0">
+        <TopBar onMenuClick={() => setMobileNavOpen(true)} />
+        {children}
+      </div>
+
+      <VipasAssistant />
+    </div>
+  );
+}

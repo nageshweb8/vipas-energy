@@ -3,6 +3,8 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export interface DateRange {
   from: string;
   to: string;
+  fromLabel: string;
+  toLabel: string;
 }
 
 export interface UiState {
@@ -15,8 +17,10 @@ const initialState: UiState = {
   sidebarCollapsed: false,
   assistantOpen: false,
   dateRange: {
-    from: "2026-05-01",
-    to: "2026-05-31",
+    from: "2025-05-12",
+    to: "2025-05-18",
+    fromLabel: "May 12",
+    toLabel: "May 18, 2025",
   },
 };
 
