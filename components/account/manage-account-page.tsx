@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import logoMark from "@/docs/Vipas Files/Final Logo Files/Vipas Energy Final Logo Transparant.png";
+import logoMark from "@/public/brand/vipas-energy-logo.png";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
 import { DataFreshnessIndicator } from "@/components/dashboard/data-freshness-indicator";
 import { Button } from "@/components/ui/button";
