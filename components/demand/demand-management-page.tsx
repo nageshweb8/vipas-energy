@@ -338,7 +338,10 @@ export function DemandManagementPage() {
             className="border-border-default bg-surface-white text-brand-secondary hover:border-brand-primary/40 hover:bg-brand-mint flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold shadow-sm transition"
           >
             <span>{prompt.label}</span>
-            <Badge variant="outline" className="text-brand-primary bg-white">
+            <Badge
+              variant="outline"
+              className="text-brand-primary bg-surface-white"
+            >
               Ask
             </Badge>
           </button>

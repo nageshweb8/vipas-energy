@@ -6,6 +6,8 @@ import {
   ChevronDown,
   Menu,
   MessageSquareText,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -20,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setAssistantOpen } from "@/store/slices/uiSlice";
+import { setAssistantOpen, toggleTheme } from "@/store/slices/uiSlice";
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -29,6 +31,7 @@ interface TopBarProps {
 export function TopBar({ onMenuClick }: TopBarProps) {
   const dispatch = useAppDispatch();
   const dateRange = useAppSelector((state) => state.ui.dateRange);
+  const theme = useAppSelector((state) => state.ui.theme);
   const user = useAppSelector((state) => state.auth.user);
   const displayInitials =
     user.initials.replace(/\s+/g, "").slice(0, 2).toUpperCase() ||
@@ -85,6 +88,20 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         >
           <MessageSquareText className="size-5" aria-hidden="true" />
           <span className="sr-only">Open assistant</span>
+        </Button>
+
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-lg"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === "dark" ? (
+            <Sun className="size-5" aria-hidden="true" />
+          ) : (
+            <Moon className="size-5" aria-hidden="true" />
+          )}
+          <span className="sr-only">Toggle theme</span>
         </Button>
 
         <Button

@@ -170,7 +170,7 @@ export function AppSidebar({
                 </span>
                 <Badge
                   variant="outline"
-                  className="border-violet-200 bg-violet-50 text-[10px] text-violet-600"
+                  className="border-violet-200 bg-violet-50 text-[10px] text-violet-600 dark:border-violet-400/30 dark:bg-violet-500/10 dark:text-violet-200"
                 >
                   BETA
                 </Badge>
