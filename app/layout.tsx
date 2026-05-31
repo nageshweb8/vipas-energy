@@ -13,7 +13,8 @@ export const metadata: Metadata = {
     default: "Vipas Energy",
     template: "%s | Vipas Energy",
   },
-  description: "Production-ready frontend scaffold for the Vipas Energy admin portal.",
+  description:
+    "Production-ready frontend scaffold for the Vipas Energy admin portal.",
 };
 
 export default function RootLayout({
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="bg-background text-foreground min-h-screen antialiased">
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
