@@ -90,19 +90,20 @@ export function AppSidebar({
   return (
     <aside
       className={cn(
-        "border-border-default bg-surface-white flex h-full min-h-screen flex-col border-r",
+        "border-border-default bg-surface-white flex h-full min-h-0 flex-col overflow-hidden border-r",
         className,
       )}
     >
       <div
         className={cn(
-          "border-border-default flex h-[73px] items-center border-b px-4",
+          "border-border-default flex h-[73px] shrink-0 items-center border-b px-4",
           collapsed ? "justify-center" : "justify-start",
         )}
       >
         <Link
           href="/"
           className="flex min-w-0 items-center gap-3"
+          aria-label="Go to dashboard"
           onClick={handleNavigate}
         >
           <Image
@@ -119,91 +120,93 @@ export function AppSidebar({
         </Link>
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 py-6">
-        {navigationItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
+      <div className="flex min-h-0 flex-1 flex-col">
+        <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-6">
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              title={collapsed ? item.label : ""}
-              onClick={handleNavigate}
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                title={collapsed ? item.label : ""}
+                onClick={handleNavigate}
+                className={cn(
+                  "text-brand-text flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-semibold transition",
+                  "hover:bg-brand-mint hover:text-brand-secondary",
+                  isActive &&
+                    "bg-brand-primary text-primary-foreground hover:bg-brand-primary hover:text-primary-foreground shadow-sm",
+                  collapsed && "justify-center px-0",
+                )}
+              >
+                <Icon className="size-5 shrink-0" aria-hidden="true" />
+                {!collapsed && <span className="truncate">{item.label}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="border-border-default shrink-0 border-t px-3 py-5">
+          {!collapsed && (
+            <p className="text-muted-foreground mb-3 px-3 text-xs font-semibold tracking-wide uppercase">
+              Conversational UX
+            </p>
+          )}
+          <button
+            type="button"
+            title={collapsed ? "Ask Vipas Assistant" : undefined}
+            onClick={onAskAssistant}
+            className={cn(
+              "text-brand-text hover:bg-brand-mint hover:text-brand-secondary flex h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-semibold transition",
+              collapsed && "justify-center px-0",
+            )}
+          >
+            <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
+            {!collapsed && (
+              <>
+                <span className="min-w-0 flex-1 truncate">
+                  Ask Vipas Assistant
+                </span>
+                <Badge
+                  variant="outline"
+                  className="border-violet-200 bg-violet-50 text-[10px] text-violet-600"
+                >
+                  BETA
+                </Badge>
+              </>
+            )}
+          </button>
+
+          <div className="mt-3">
+            <Button
+              type="button"
+              variant="ghost"
               className={cn(
-                "text-brand-text flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-semibold transition",
-                "hover:bg-brand-mint hover:text-brand-secondary",
-                isActive &&
-                  "bg-brand-primary text-primary-foreground hover:bg-brand-primary hover:text-primary-foreground shadow-sm",
+                "text-muted-foreground h-10 w-full justify-start gap-3",
                 collapsed && "justify-center px-0",
               )}
+              onClick={onToggleCollapsed}
             >
-              <Icon className="size-5 shrink-0" aria-hidden="true" />
-              {!collapsed && <span className="truncate">{item.label}</span>}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className="border-border-default border-t px-3 py-5">
-        {!collapsed && (
-          <p className="text-muted-foreground mb-3 px-3 text-xs font-semibold tracking-wide uppercase">
-            Conversational UX
-          </p>
-        )}
-        <button
-          type="button"
-          title={collapsed ? "Ask Vipas Assistant" : undefined}
-          onClick={onAskAssistant}
-          className={cn(
-            "text-brand-text hover:bg-brand-mint hover:text-brand-secondary flex h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-semibold transition",
-            collapsed && "justify-center px-0",
-          )}
-        >
-          <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
-          {!collapsed && (
-            <>
-              <span className="min-w-0 flex-1 truncate">
-                Ask Vipas Assistant
-              </span>
-              <Badge
-                variant="outline"
-                className="border-violet-200 bg-violet-50 text-[10px] text-violet-600"
-              >
-                BETA
-              </Badge>
-            </>
-          )}
-        </button>
-      </div>
-
-      <div className="px-3 pb-5">
-        <Button
-          type="button"
-          variant="ghost"
-          className={cn(
-            "text-muted-foreground h-10 w-full justify-start gap-3",
-            collapsed && "justify-center px-0",
-          )}
-          onClick={onToggleCollapsed}
-        >
-          {collapsed ? (
-            <Gauge className="size-5" aria-hidden="true" />
-          ) : (
-            <ChevronLeft className="size-5" aria-hidden="true" />
-          )}
-          {!collapsed && <span>Collapse</span>}
-        </Button>
-      </div>
-
-      {!collapsed && (
-        <div className="px-6 pb-5">
-          <div className="text-muted-foreground flex items-center gap-2 text-xs">
-            <Settings className="size-3.5" aria-hidden="true" />
-            Demo workspace
+              {collapsed ? (
+                <Gauge className="size-5" aria-hidden="true" />
+              ) : (
+                <ChevronLeft className="size-5" aria-hidden="true" />
+              )}
+              {!collapsed && <span>Collapse</span>}
+            </Button>
           </div>
+
+          {!collapsed && (
+            <div className="px-3 pt-4">
+              <div className="text-muted-foreground flex items-center gap-2 text-xs">
+                <Settings className="size-3.5" aria-hidden="true" />
+                Demo workspace
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </aside>
   );
 }
