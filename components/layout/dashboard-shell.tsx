@@ -36,7 +36,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
     >
       <AppSidebar
         collapsed={sidebarCollapsed}
-        className="hidden lg:flex"
+        className="hidden lg:sticky lg:top-0 lg:flex lg:h-screen"
         onAskAssistant={openAssistant}
         onToggleCollapsed={() => dispatch(toggleSidebarCollapsed())}
       />

@@ -1,14 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import {
-  ArrowRight,
-  BarChart3,
-  Bot,
-  FileText,
-  Plus,
-  Sparkles,
-} from "lucide-react";
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
+import { ArrowRight, BarChart3, FileText, Plus } from "lucide-react";
 
+import logoMark from "@/docs/Vipas Files/Final Logo Files/Vipas Energy Final Logo Transparant.png";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,9 +31,106 @@ const suggestedPrompts = [
   "Create a weekly demand summary.",
 ] as const;
 
+const ASSISTANT_DEFAULT_WIDTH = 800;
+const ASSISTANT_MIN_WIDTH = 560;
+const ASSISTANT_MAX_WIDTH = 1120;
+const ASSISTANT_RESIZE_STEP = 32;
+
+function clampAssistantWidth(width: number) {
+  const viewportMaxWidth =
+    typeof window === "undefined"
+      ? ASSISTANT_DEFAULT_WIDTH
+      : Math.max(360, Math.min(ASSISTANT_MAX_WIDTH, window.innerWidth - 12));
+
+  const viewportMinWidth = Math.min(ASSISTANT_MIN_WIDTH, viewportMaxWidth);
+
+  return Math.min(Math.max(width, viewportMinWidth), viewportMaxWidth);
+}
+
 export function VipasAssistant() {
   const dispatch = useAppDispatch();
   const assistantOpen = useAppSelector((state) => state.ui.assistantOpen);
+  const [assistantWidth, setAssistantWidth] = useState(() =>
+    clampAssistantWidth(ASSISTANT_DEFAULT_WIDTH),
+  );
+  const resizeCleanupRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    const handleViewportResize = () => {
+      setAssistantWidth((currentWidth) => clampAssistantWidth(currentWidth));
+    };
+
+    window.addEventListener("resize", handleViewportResize);
+
+    return () => {
+      window.removeEventListener("resize", handleViewportResize);
+      resizeCleanupRef.current?.();
+    };
+  }, []);
+
+  const handleResizeStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    event.preventDefault();
+
+    resizeCleanupRef.current?.();
+
+    const startX = event.clientX;
+    const startWidth = assistantWidth;
+
+    const handlePointerMove = (moveEvent: PointerEvent) => {
+      const widthDelta = startX - moveEvent.clientX;
+
+      setAssistantWidth(clampAssistantWidth(startWidth + widthDelta));
+    };
+
+    const stopResize = () => {
+      resizeCleanupRef.current?.();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", stopResize);
+      window.removeEventListener("pointercancel", stopResize);
+      document.body.classList.remove("cursor-col-resize", "select-none");
+      resizeCleanupRef.current = null;
+    };
+
+    resizeCleanupRef.current = cleanup;
+
+    document.body.classList.add("cursor-col-resize", "select-none");
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", stopResize);
+    window.addEventListener("pointercancel", stopResize);
+  };
+
+  const handleResizeKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      setAssistantWidth((currentWidth) =>
+        clampAssistantWidth(currentWidth + ASSISTANT_RESIZE_STEP),
+      );
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      setAssistantWidth((currentWidth) =>
+        clampAssistantWidth(currentWidth - ASSISTANT_RESIZE_STEP),
+      );
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      setAssistantWidth(clampAssistantWidth(ASSISTANT_MIN_WIDTH));
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      setAssistantWidth(clampAssistantWidth(ASSISTANT_MAX_WIDTH));
+    }
+  };
 
   return (
     <Sheet
@@ -40,12 +139,33 @@ export function VipasAssistant() {
     >
       <SheetContent
         side="right"
-        className="border-border-default bg-surface-white w-full gap-0 p-0 sm:max-w-xl"
+        disableDefaultWidth
+        className="border-border-default bg-surface-white gap-0 p-0"
+        style={{ width: `${assistantWidth}px`, maxWidth: "100vw" }}
       >
+        <div
+          role="separator"
+          aria-label="Resize assistant width"
+          aria-orientation="vertical"
+          aria-valuemin={ASSISTANT_MIN_WIDTH}
+          aria-valuemax={ASSISTANT_MAX_WIDTH}
+          aria-valuenow={assistantWidth}
+          tabIndex={0}
+          onPointerDown={handleResizeStart}
+          onKeyDown={handleResizeKeyDown}
+          className="group absolute top-0 left-0 z-20 hidden h-full w-4 -translate-x-1/2 cursor-col-resize touch-none items-center justify-center outline-hidden sm:flex"
+        >
+          <span className="bg-border-default group-hover:bg-brand-primary/35 group-focus-visible:bg-brand-primary/45 h-20 w-1 rounded-full transition" />
+          <span className="sr-only">
+            Drag to resize the assistant panel. Use Left or Right arrow keys to
+            adjust the width.
+          </span>
+        </div>
+
         <SheetHeader className="border-border-default border-b px-5 py-4">
           <SheetTitle className="text-brand-secondary flex items-center gap-2">
             <span className="bg-brand-mint text-brand-primary flex size-9 items-center justify-center rounded-full">
-              <Sparkles className="size-4" aria-hidden="true" />
+              <Image src={logoMark} alt="" className="size-5 object-contain" />
             </span>
             Vipas Assistant
           </SheetTitle>
@@ -82,10 +202,10 @@ export function VipasAssistant() {
 
           <div className="flex gap-3">
             <div className="bg-brand-mint text-brand-primary flex size-9 shrink-0 items-center justify-center rounded-full">
-              <Bot className="size-4" aria-hidden="true" />
+              <Image src={logoMark} alt="" className="size-5 object-contain" />
             </div>
             <DashboardCard
-              className="flex-1 shadow-none"
+              className="min-w-0 flex-1 shadow-none"
               contentClassName="space-y-4"
             >
               <p className="text-brand-text text-sm leading-6">
@@ -106,7 +226,7 @@ export function VipasAssistant() {
                     May 16, 2025 - 2:30 PM
                   </p>
                 </div>
-                <div className="space-y-2">
+                <div className="min-w-0 space-y-2">
                   {[
                     ["Cooling Load", "18.6%"],
                     ["Industrial Activity", "12.4%"],
@@ -114,7 +234,7 @@ export function VipasAssistant() {
                   ].map(([label, value]) => (
                     <div
                       key={label}
-                      className="grid grid-cols-[1fr_auto] gap-3"
+                      className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-3"
                     >
                       <span className="text-brand-text text-sm">{label}</span>
                       <span className="text-success text-sm font-semibold">

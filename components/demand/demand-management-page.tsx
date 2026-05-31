@@ -147,23 +147,23 @@ export function DemandManagementPage() {
         </DashboardCard>
 
         <DashboardCard title="Demand by Site" className="xl:col-span-4">
-          <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_14rem] xl:grid-cols-1 2xl:grid-cols-[minmax(0,1fr)_13rem]">
+          <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_12.5rem] xl:grid-cols-1 2xl:grid-cols-[minmax(0,1fr)_12rem]">
             <DemandBySiteChart data={data.siteBreakdown} totalLabel="128.4" />
-            <div className="space-y-3 self-center">
+            <div className="space-y-2.5 self-start sm:pt-3 xl:pt-0 2xl:pt-3">
               {data.siteBreakdown.map((site, index) => (
                 <div key={site.name} className="flex items-start gap-3">
                   <span
                     className={cn(
-                      "mt-1.5 size-2.5 shrink-0 rounded-full",
+                      "mt-1.5 size-2 shrink-0 rounded-full",
                       breakdownDotClasses[index % breakdownDotClasses.length] ??
                         "bg-slate-400",
                     )}
                   />
                   <div className="min-w-0">
-                    <p className="text-brand-secondary truncate text-sm font-semibold">
+                    <p className="text-brand-secondary truncate text-[13px] leading-5 font-semibold">
                       {site.name}
                     </p>
-                    <p className="text-muted-foreground text-xs">
+                    <p className="text-muted-foreground text-[11px] leading-4">
                       {site.demandMwh.toFixed(1)} MWh (
                       {site.percentage.toFixed(1)}
                       %)
@@ -173,7 +173,7 @@ export function DemandManagementPage() {
               ))}
               <button
                 type="button"
-                className="text-brand-primary inline-flex items-center gap-2 text-sm font-semibold"
+                className="text-brand-primary inline-flex items-center gap-2 pt-1 text-sm font-semibold"
               >
                 View all sites
                 <ArrowRight className="size-4" aria-hidden="true" />

@@ -38,26 +38,26 @@ export function DemandBySiteChart({
       text: totalLabel,
       subtext: "MWh\nTotal",
       left: "center",
-      top: "38%",
+      top: "39%",
       textStyle: {
         color: chartColors.secondary,
         fontFamily: "Montserrat",
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 700,
       },
       subtextStyle: {
         color: chartColors.secondary,
         fontFamily: "Montserrat",
-        fontSize: 12,
-        lineHeight: 18,
+        fontSize: 11,
+        lineHeight: 17,
       },
     },
     series: [
       {
         name: "Demand by Site",
         type: "pie",
-        radius: ["58%", "82%"],
-        center: ["50%", "50%"],
+        radius: ["64%", "88%"],
+        center: ["50%", "52%"],
         avoidLabelOverlap: true,
         label: {
           show: false,
@@ -77,5 +77,5 @@ export function DemandBySiteChart({
     ],
   };
 
-  return <BaseChart option={option} height={250} />;
+  return <BaseChart option={option} height={290} />;
 }
