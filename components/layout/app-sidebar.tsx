@@ -9,6 +9,7 @@ import {
   CalendarDays,
   ChevronLeft,
   Gauge,
+  LayoutDashboard,
   Leaf,
   MessageCircle,
   Settings,
@@ -29,6 +30,11 @@ interface NavigationItem {
 }
 
 const navigationItems: NavigationItem[] = [
+  {
+    href: "/",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+  },
   {
     href: "/demand",
     label: "Demand Management",
@@ -95,7 +101,7 @@ export function AppSidebar({
         )}
       >
         <Link
-          href="/demand"
+          href="/"
           className="flex min-w-0 items-center gap-3"
           onClick={handleNavigate}
         >
