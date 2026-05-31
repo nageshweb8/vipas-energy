@@ -1,7 +1,9 @@
 import type {
-  ActionAlert,
   BreakdownItem,
+  CarbonComplianceReport,
+  CarbonInitiative,
   CarbonSiteRow,
+  CarbonSiteTotals,
   ModuleKpi,
   TrendSeries,
 } from "@/types/energy-modules";
@@ -113,29 +115,53 @@ export const carbonData = {
     },
     { name: "Other Fuels", value: 782, label: "782 tCO2e", percentage: 6.0 },
   ] satisfies BreakdownItem[],
-  alerts: [
+  initiatives: [
     {
-      id: "manufacturing-intensity",
-      title: "Manufacturing intensity above target",
-      description: "Intensity rose 1.4% and needs reduction follow-up.",
-      meta: "Carbon watch",
-      severity: "Medium",
+      id: "solar-expansion-phase-2",
+      title: "Solar Expansion - Phase 2",
+      annualImpactTco2e: 1200,
+      progressPercent: 75,
+      status: "On Track",
     },
     {
-      id: "solar-expansion",
-      title: "Solar expansion can reduce 1,200 tCO2e",
-      description: "Phase 2 initiative is ready for executive review.",
-      meta: "Reduction opportunity",
-      severity: "Info",
+      id: "hvac-efficiency-upgrade",
+      title: "HVAC Efficiency Upgrade",
+      annualImpactTco2e: 450,
+      progressPercent: 40,
+      status: "In Progress",
     },
     {
-      id: "report-ready",
-      title: "Sustainability report packet is ready",
-      description: "Q1 report and GHG inventory are available for review.",
-      meta: "Compliance",
-      severity: "Low",
+      id: "fleet-electrification",
+      title: "Fleet Electrification",
+      annualImpactTco2e: 300,
+      progressPercent: 15,
+      status: "Planned",
     },
-  ] satisfies ActionAlert[],
+    {
+      id: "led-lighting-retrofit",
+      title: "LED Lighting Retrofit",
+      annualImpactTco2e: 120,
+      progressPercent: 90,
+      status: "Completed",
+    },
+  ] satisfies CarbonInitiative[],
+  reports: [
+    {
+      id: "sustainability-report-q1-2025",
+      title: "Sustainability Report (Q1 2025)",
+      detail: "Generated on Apr 15, 2025",
+    },
+    {
+      id: "ghg-inventory-fy-2024",
+      title: "GHG Inventory (FY 2024)",
+      detail: "Generated on Jan 20, 2025",
+    },
+    {
+      id: "iso-14064-summary",
+      title: "ISO 14064-1 Summary",
+      detail: "Last updated on Mar 28, 2025",
+    },
+  ] satisfies CarbonComplianceReport[],
   rows: [
     {
       id: "solar-alpha",
@@ -143,7 +169,6 @@ export const carbonData = {
       emissions: 4102,
       intensity: 0.38,
       deltaPercent: -6.2,
-      status: "On Track",
     },
     {
       id: "wind-beta",
@@ -151,7 +176,6 @@ export const carbonData = {
       emissions: 2845,
       intensity: 0.45,
       deltaPercent: -3.1,
-      status: "On Track",
     },
     {
       id: "manufacturing",
@@ -159,7 +183,6 @@ export const carbonData = {
       emissions: 2310,
       intensity: 0.52,
       deltaPercent: 1.4,
-      status: "Watch",
     },
     {
       id: "data-center",
@@ -167,7 +190,6 @@ export const carbonData = {
       emissions: 1642,
       intensity: 0.41,
       deltaPercent: -2.7,
-      status: "On Track",
     },
     {
       id: "logistics",
@@ -175,7 +197,18 @@ export const carbonData = {
       emissions: 1126,
       intensity: 0.36,
       deltaPercent: -5.5,
-      status: "On Track",
+    },
+    {
+      id: "corporate-office",
+      site: "Corporate Office",
+      emissions: 820,
+      intensity: 0.29,
+      deltaPercent: -1.9,
     },
   ] satisfies CarbonSiteRow[],
+  siteTotals: {
+    emissions: 12845,
+    intensity: 0.42,
+    deltaPercent: -3.2,
+  } satisfies CarbonSiteTotals,
 };

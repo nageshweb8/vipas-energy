@@ -2,236 +2,533 @@
 
 import {
   Bell,
+  Calendar,
   CheckCircle2,
-  Cloud,
-  Database,
+  Download,
+  FileText,
   Link2,
-  MessageSquare,
   Settings,
-  ShieldCheck,
+  Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { AssistantEntry } from "@/components/dashboard/assistant-entry";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
-import { ModuleKpiStrip } from "@/components/dashboard/module-kpi-strip";
-import {
-  StatusBadge,
-  type StatusBadgeVariant,
-} from "@/components/dashboard/status-badge";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/dashboard/status-badge";
 import { Button } from "@/components/ui/button";
 import { subscriptionsData } from "@/lib/stub/subscriptions";
-import type { ConnectorCard, OperationalStatus } from "@/types/energy-modules";
+import { cn } from "@/lib/utils";
+import type {
+  ConnectorCard,
+  RoleDistributionItem,
+  UsageAllocation,
+} from "@/types/energy-modules";
 
-const connectorIconMap: Record<string, LucideIcon> = {
-  "google-workspace": Cloud,
-  "microsoft-365": Cloud,
-  slack: MessageSquare,
-  "aws-s3": Database,
-  "vipas-rate-db": ShieldCheck,
-  accuweather: Link2,
+const allocationToneClasses: Record<UsageAllocation["tone"], string> = {
+  green: "text-brand-primary",
+  blue: "text-info",
+  violet: "text-violet-600 dark:text-violet-200",
 };
 
-const statusVariant: Partial<Record<OperationalStatus, StatusBadgeVariant>> = {
-  Connected: "success",
-  Enabled: "success",
-  Open: "info",
+const roleToneClasses: Record<RoleDistributionItem["tone"], string> = {
+  green: "bg-brand-primary",
+  blue: "bg-info",
+  violet: "bg-violet-500",
+  neutral: "bg-slate-400 dark:bg-slate-500",
 };
 
-const workspaceSettings: Array<{ label: string; value: string }> = [
-  { label: "Workspace", value: "Vipas Energy Operations" },
-  { label: "Time Zone", value: "Asia/Kolkata" },
-  { label: "Currency", value: "INR" },
-  { label: "Date Format", value: "DD MMM YYYY" },
-];
+const connectorMarkClasses: Record<string, string> = {
+  "google-workspace": "text-danger",
+  "microsoft-365": "text-info",
+  slack: "text-violet-600 dark:text-violet-200",
+  "aws-s3": "text-warning",
+};
 
-const notificationSettings: Array<{ label: string; enabled: boolean }> = [
-  { label: "Email Notifications", enabled: true },
-  { label: "In-app Notifications", enabled: true },
-  { label: "Weekly Digest", enabled: true },
-  { label: "Marketing Updates", enabled: false },
-];
+const connectorMarks: Record<string, string> = {
+  "google-workspace": "G",
+  "microsoft-365": "M",
+  slack: "#",
+  "aws-s3": "aws",
+};
 
-const subscriptionSummaryCards: Array<{
-  title: string;
-  description: string;
+function CardTitleIcon({
+  icon: Icon,
+  tone = "green",
+}: {
   icon: LucideIcon;
-}> = [
-  {
-    title: "Security",
-    description: "MFA and RBAC are enabled for the workspace.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Alerts",
-    description: "Anomaly and report notifications are visible.",
-    icon: Bell,
-  },
-  {
-    title: "Status",
-    description: "All visual connector cards are demo-safe.",
-    icon: CheckCircle2,
-  },
-];
-
-function ConnectorTile({ connector }: { connector: ConnectorCard }) {
-  const Icon = connectorIconMap[connector.id] ?? Link2;
+  tone?: "green" | "blue" | "violet" | "warning";
+}) {
+  const toneClasses = {
+    green: "bg-brand-mint text-brand-primary",
+    blue: "bg-info/10 text-info",
+    violet: "bg-violet-500/10 text-violet-600 dark:text-violet-200",
+    warning: "bg-warning/10 text-warning",
+  };
 
   return (
-    <article className="border-border-default bg-surface-bg flex gap-3 rounded-xl border p-4">
-      <span className="bg-brand-mint text-brand-primary flex size-11 shrink-0 items-center justify-center rounded-full">
-        <Icon className="size-5" aria-hidden="true" />
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-brand-secondary font-semibold">
-              {connector.name}
-            </p>
-            <p className="text-muted-foreground mt-1 text-xs">
-              {connector.category}
-            </p>
-          </div>
-          <StatusBadge variant={statusVariant[connector.status] ?? "neutral"}>
-            {connector.status}
-          </StatusBadge>
-        </div>
-        <p className="text-brand-text mt-3 text-sm leading-6">
-          {connector.description}
-        </p>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className="mt-4"
-          disabled
-        >
-          Configure
-        </Button>
+    <span
+      className={cn(
+        "flex size-9 shrink-0 items-center justify-center rounded-full",
+        toneClasses[tone],
+      )}
+    >
+      <Icon className="size-4" aria-hidden="true" />
+    </span>
+  );
+}
+
+function UsageMeter({ allocation }: { allocation: UsageAllocation }) {
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference - (allocation.value / 100) * circumference;
+
+  return (
+    <div className="flex min-w-28 flex-col items-center text-center">
+      <div className="relative size-28">
+        <svg className="-rotate-90" viewBox="0 0 100 100" aria-hidden="true">
+          <circle
+            cx="50"
+            cy="50"
+            r={radius}
+            fill="none"
+            stroke="var(--brand-mint)"
+            strokeWidth="8"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r={radius}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={dashOffset}
+            className={allocationToneClasses[allocation.tone]}
+          />
+        </svg>
+        <span className="text-brand-secondary absolute inset-0 flex items-center justify-center text-2xl font-bold">
+          {allocation.value}%
+        </span>
       </div>
-    </article>
+      <p className="text-brand-secondary mt-2 font-semibold">
+        {allocation.label}
+      </p>
+      <p className="text-muted-foreground text-xs">{allocation.usedLabel}</p>
+      <button
+        type="button"
+        className="text-brand-primary mt-2 text-xs font-semibold"
+      >
+        {allocation.actionLabel} {"->"}
+      </button>
+    </div>
+  );
+}
+
+function RoleDistributionChart({ items }: { items: RoleDistributionItem[] }) {
+  const radius = 36;
+  const circumference = 2 * Math.PI * radius;
+  const segments = items.reduce<{
+    runningOffset: number;
+    segments: Array<{
+      item: RoleDistributionItem;
+      dash: number;
+      offset: number;
+    }>;
+  }>(
+    (accumulator, item) => {
+      const dash = (item.percentage / 100) * circumference;
+
+      return {
+        runningOffset: accumulator.runningOffset + dash,
+        segments: [
+          ...accumulator.segments,
+          {
+            item,
+            dash,
+            offset: accumulator.runningOffset,
+          },
+        ],
+      };
+    },
+    { runningOffset: 0, segments: [] },
+  ).segments;
+
+  return (
+    <svg
+      className="size-32 -rotate-90"
+      viewBox="0 0 100 100"
+      aria-hidden="true"
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r={radius}
+        fill="none"
+        stroke="var(--brand-mint)"
+        strokeWidth="16"
+      />
+      {segments.map(({ item, dash, offset }) => {
+        return (
+          <circle
+            key={item.id}
+            cx="50"
+            cy="50"
+            r={radius}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="16"
+            strokeDasharray={`${dash} ${circumference - dash}`}
+            strokeDashoffset={-offset}
+            className={roleToneClasses[item.tone]}
+          />
+        );
+      })}
+      <circle cx="50" cy="50" r="22" fill="var(--surface-white)" />
+    </svg>
+  );
+}
+
+function ToggleRow({
+  label,
+  description,
+  enabled,
+}: {
+  label: string;
+  description: string;
+  enabled: boolean;
+}) {
+  return (
+    <div className="border-border-default/70 flex items-center justify-between gap-4 border-b py-3 last:border-0">
+      <div className="min-w-0">
+        <p className="text-brand-secondary text-sm font-semibold">{label}</p>
+        <p className="text-muted-foreground mt-0.5 text-xs leading-5">
+          {description}
+        </p>
+      </div>
+      <span
+        className={cn(
+          "flex h-6 w-11 shrink-0 items-center rounded-full px-1",
+          enabled
+            ? "bg-brand-primary justify-end"
+            : "bg-slate-300 dark:bg-slate-600",
+        )}
+      >
+        <span className="bg-surface-white size-4 rounded-full" />
+      </span>
+    </div>
+  );
+}
+
+function ConnectorRow({ connector }: { connector: ConnectorCard }) {
+  return (
+    <div className="border-border-default/70 flex items-center gap-3 border-b px-3 py-3 last:border-0">
+      <span
+        className={cn(
+          "flex w-10 shrink-0 items-center justify-center text-lg font-bold",
+          connectorMarkClasses[connector.id] ?? "text-brand-primary",
+        )}
+      >
+        {connectorMarks[connector.id] ?? connector.name.slice(0, 1)}
+      </span>
+      <span className="text-brand-secondary min-w-0 flex-1 font-medium">
+        {connector.name}
+      </span>
+      <span className="text-success inline-flex items-center gap-1.5 text-xs font-semibold">
+        {connector.status}
+        <CheckCircle2 className="size-4" aria-hidden="true" />
+      </span>
+    </div>
   );
 }
 
 export function SubscriptionsSettingsPage() {
   return (
     <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="max-w-3xl">
+      <section className="max-w-4xl">
         <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
           Subscriptions & Settings
         </h1>
-        <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
-          Manage enabled modules, connector subscriptions, workspace
-          preferences, and visual-only integration actions for the demo.
+        <p className="text-brand-text mt-3 max-w-3xl text-sm leading-6 sm:text-base">
+          Manage your subscription plan, users, workspace settings,
+          notifications, and preferences to keep your operations running
+          smoothly.
         </p>
       </section>
 
-      <ModuleKpiStrip kpis={subscriptionsData.kpis} />
+      <section className="grid gap-5 xl:grid-cols-3">
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={FileText} />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Plan Summary
+            </h2>
+          </div>
 
-      <section className="grid gap-4 xl:grid-cols-12">
-        <DashboardCard title="Enabled Modules" className="xl:col-span-5">
-          <div className="flex flex-wrap gap-2">
-            {subscriptionsData.enabledModules.map((module) => (
-              <Badge
-                key={module}
-                variant="outline"
-                className="border-brand-primary/20 bg-brand-mint text-brand-secondary px-3 py-1 text-xs font-semibold"
-              >
-                {module}
-              </Badge>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <p className="text-brand-secondary text-2xl font-bold">
+              {subscriptionsData.planSummary.name}
+            </p>
+            <StatusBadge variant="success">
+              {subscriptionsData.planSummary.status}
+            </StatusBadge>
+          </div>
+          <p className="text-muted-foreground mt-4 max-w-md text-sm leading-6">
+            {subscriptionsData.planSummary.description}
+          </p>
+
+          <div className="mt-8 grid gap-4 text-sm">
+            <div className="flex justify-between gap-4">
+              <span className="text-muted-foreground">Renewal Date</span>
+              <span className="text-brand-primary inline-flex items-center gap-2 text-right font-semibold">
+                <Calendar className="size-4" aria-hidden="true" />
+                {subscriptionsData.planSummary.renewalDate}
+              </span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span className="text-muted-foreground">Billing Cycle</span>
+              <span className="text-brand-secondary text-right font-semibold">
+                {subscriptionsData.planSummary.billingCycle}
+              </span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span className="text-muted-foreground">Amount</span>
+              <span className="text-brand-secondary text-right font-semibold">
+                {subscriptionsData.planSummary.amount}
+              </span>
+            </div>
+          </div>
+
+          <Button type="button" variant="outline" className="mt-8">
+            Manage Plan
+          </Button>
+        </DashboardCard>
+
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={Users} tone="blue" />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Usage & Seat Allocation
+            </h2>
+          </div>
+
+          <div className="mt-7 grid gap-5 sm:grid-cols-3 xl:grid-cols-3">
+            {subscriptionsData.usageAllocation.map((allocation) => (
+              <UsageMeter key={allocation.id} allocation={allocation} />
             ))}
           </div>
-          <div className="border-border-default bg-surface-bg mt-5 rounded-xl border p-4">
-            <p className="text-brand-secondary font-semibold">
-              Enterprise Plan
+
+          <div className="border-info/10 bg-info/5 mt-6 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-brand-text text-sm">
+              <span className="text-brand-secondary block font-semibold">
+                Need more capacity?
+              </span>
+              <span className="text-info font-semibold">
+                Upgrade your plan or add-ons.
+              </span>
             </p>
-            <p className="text-muted-foreground mt-2 text-sm leading-6">
-              Includes portfolio analytics, staged reporting data, assistant UI,
-              and connector-gated product modules.
-            </p>
-            <Button type="button" variant="outline" className="mt-4" disabled>
-              Manage Plan
+            <Button type="button" variant="outline" size="sm">
+              Upgrade Plan
             </Button>
           </div>
         </DashboardCard>
 
-        <DashboardCard title="Workspace Settings" className="xl:col-span-3">
-          <div className="space-y-4">
-            {workspaceSettings.map(({ label, value }) => (
-              <div key={label} className="flex justify-between gap-4 text-sm">
-                <span className="text-muted-foreground">{label}</span>
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={Users} tone="blue" />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Users & Permissions
+            </h2>
+          </div>
+
+          <div className="border-border-default mt-8 grid grid-cols-4 gap-3 border-b pb-5">
+            {subscriptionsData.userPermissions.map((item) => (
+              <div key={item.label}>
+                <p className="text-brand-secondary text-2xl font-bold">
+                  {item.value}
+                </p>
+                <p className="text-brand-text mt-1 text-sm">{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-brand-secondary mt-5 font-semibold">
+            Role Distribution
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
+            <RoleDistributionChart items={subscriptionsData.roleDistribution} />
+            <div className="space-y-3">
+              {subscriptionsData.roleDistribution.map((item) => (
+                <div key={item.id} className="flex items-center gap-3 text-sm">
+                  <span
+                    className={cn(
+                      "size-2.5 rounded-full",
+                      roleToneClasses[item.tone],
+                    )}
+                  />
+                  <span className="text-brand-text min-w-0 flex-1">
+                    {item.role}
+                  </span>
+                  <span className="text-muted-foreground shrink-0">
+                    {item.count} ({item.percentage.toFixed(1)}%)
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex justify-center">
+            <Button type="button" variant="outline">
+              Manage Users
+            </Button>
+          </div>
+        </DashboardCard>
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-3">
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={Settings} tone="violet" />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Workspace Settings
+            </h2>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {subscriptionsData.workspaceSettings.map((setting) => (
+              <div
+                key={setting.label}
+                className="flex justify-between gap-4 text-sm"
+              >
+                <span className="text-muted-foreground">{setting.label}</span>
                 <span className="text-brand-secondary text-right font-semibold">
-                  {value}
+                  {setting.value}
                 </span>
               </div>
             ))}
           </div>
+
+          <div className="mt-7 flex justify-center">
+            <Button type="button" variant="outline">
+              Edit Settings
+            </Button>
+          </div>
         </DashboardCard>
 
-        <DashboardCard title="Notifications" className="xl:col-span-4">
-          <div className="space-y-4">
-            {notificationSettings.map(({ label, enabled }) => (
-              <div
-                key={label}
-                className="flex items-center justify-between gap-4"
-              >
-                <span className="text-brand-text text-sm font-medium">
-                  {label}
-                </span>
-                <span
-                  className={
-                    enabled
-                      ? "bg-brand-primary flex h-6 w-11 items-center justify-end rounded-full px-1"
-                      : "bg-border-default flex h-6 w-11 items-center rounded-full px-1"
-                  }
-                >
-                  <span className="bg-surface-white size-4 rounded-full" />
-                </span>
-              </div>
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={Bell} tone="warning" />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Notifications & Preferences
+            </h2>
+          </div>
+
+          <div className="mt-5">
+            {subscriptionsData.notifications.map((notification) => (
+              <ToggleRow
+                key={notification.label}
+                label={notification.label}
+                description={notification.description}
+                enabled={notification.enabled}
+              />
             ))}
+          </div>
+
+          <div className="mt-6 flex justify-center">
+            <Button type="button" variant="outline">
+              Manage Preferences
+            </Button>
+          </div>
+        </DashboardCard>
+
+        <DashboardCard>
+          <div className="flex items-center gap-3">
+            <CardTitleIcon icon={Link2} />
+            <h2 className="text-brand-secondary text-base font-semibold">
+              Integrations & Connected Services
+            </h2>
+          </div>
+
+          <div className="border-border-default mt-5 overflow-hidden rounded-xl border">
+            {subscriptionsData.connectors.map((connector) => (
+              <ConnectorRow key={connector.id} connector={connector} />
+            ))}
+          </div>
+
+          <div className="mt-5 flex justify-center">
+            <Button type="button" variant="outline">
+              Manage Integrations
+            </Button>
           </div>
         </DashboardCard>
       </section>
 
       <DashboardCard
-        title="Integrations & Connected Services"
-        description="Connector actions are visual only in this milestone; backend orchestration and subscription enforcement stay server-owned."
+        title="Billing & Invoice History"
         headerAction={
-          <Button type="button" variant="outline" disabled>
-            <Settings className="size-4" aria-hidden="true" />
-            Manage Integrations
-          </Button>
+          <button
+            type="button"
+            className="text-brand-primary inline-flex items-center gap-2 text-sm font-semibold"
+          >
+            View all invoices
+            <span aria-hidden="true">{"->"}</span>
+          </button>
         }
       >
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {subscriptionsData.connectors.map((connector) => (
-            <ConnectorTile key={connector.id} connector={connector} />
-          ))}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-border-default text-brand-secondary border-b">
+                <th className="pb-3 font-semibold">Invoice ID</th>
+                <th className="pb-3 font-semibold">Date</th>
+                <th className="pb-3 font-semibold">Plan</th>
+                <th className="pb-3 font-semibold">Billing Cycle</th>
+                <th className="pb-3 font-semibold">Amount</th>
+                <th className="pb-3 font-semibold">Status</th>
+                <th className="pb-3 text-right font-semibold">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {subscriptionsData.invoices.map((invoice) => (
+                <tr
+                  key={invoice.id}
+                  className="border-border-default/70 border-b last:border-0"
+                >
+                  <td className="text-brand-secondary py-3 font-medium">
+                    {invoice.id}
+                  </td>
+                  <td className="text-brand-text py-3">{invoice.date}</td>
+                  <td className="text-brand-text py-3">{invoice.plan}</td>
+                  <td className="text-brand-text py-3">
+                    {invoice.billingCycle}
+                  </td>
+                  <td className="text-brand-text py-3">{invoice.amount}</td>
+                  <td className="py-3">
+                    <StatusBadge variant="success">
+                      {invoice.status}
+                    </StatusBadge>
+                  </td>
+                  <td className="py-3 text-right">
+                    <Button type="button" variant="ghost" size="icon">
+                      <Download className="size-4" aria-hidden="true" />
+                      <span className="sr-only">Download {invoice.id}</span>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="text-muted-foreground mt-5 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+          <span>All amounts are in INR (Rs)</span>
+          <span>
+            Invoices are available for download for the past 24 months.
+          </span>
         </div>
       </DashboardCard>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        {subscriptionSummaryCards.map(({ title, description, icon: Icon }) => {
-          return (
-            <DashboardCard key={title}>
-              <div className="flex items-start gap-3">
-                <span className="bg-brand-mint text-brand-primary flex size-10 items-center justify-center rounded-full">
-                  <Icon className="size-5" aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="text-brand-secondary font-semibold">{title}</p>
-                  <p className="text-muted-foreground mt-1 text-sm leading-6">
-                    {description}
-                  </p>
-                </div>
-              </div>
-            </DashboardCard>
-          );
-        })}
-      </section>
-
-      <div className="ml-auto w-full max-w-96">
+      <div className="ml-auto w-full max-w-md">
         <AssistantEntry />
       </div>
     </main>

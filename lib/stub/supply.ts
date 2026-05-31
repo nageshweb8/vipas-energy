@@ -1,7 +1,7 @@
 import type {
   ActionAlert,
-  BreakdownItem,
   ModuleKpi,
+  SupplyDeliveryRow,
   SupplySiteRow,
   TrendSeries,
 } from "@/types/energy-modules";
@@ -91,13 +91,6 @@ export const supplyData = {
       dashed: true,
     },
   ] satisfies TrendSeries[],
-  breakdown: [
-    { name: "Solar", value: 48.2, label: "48.2 GWh", percentage: 37.5 },
-    { name: "Wind", value: 34.1, label: "34.1 GWh", percentage: 26.5 },
-    { name: "Grid", value: 26.4, label: "26.4 GWh", percentage: 20.5 },
-    { name: "Storage", value: 12.7, label: "12.7 GWh", percentage: 9.9 },
-    { name: "Other", value: 7.1, label: "7.1 GWh", percentage: 5.6 },
-  ] satisfies BreakdownItem[],
   alerts: [
     {
       id: "delayed-supply",
@@ -169,4 +162,46 @@ export const supplyData = {
       status: "On Track",
     },
   ] satisfies SupplySiteRow[],
+  deliveries: [
+    {
+      id: "delivery-may-19-solar-alpha",
+      deliveryDate: "May 19, 2025",
+      supplier: "Solar Park Alpha",
+      commodity: "Solar Energy",
+      quantityGwh: 6.4,
+      status: "On Track",
+    },
+    {
+      id: "delivery-may-20-wind-beta",
+      deliveryDate: "May 20, 2025",
+      supplier: "Wind Farm Beta",
+      commodity: "Wind Energy",
+      quantityGwh: 5.2,
+      status: "Delayed",
+    },
+    {
+      id: "delivery-may-21-manufacturing-plant",
+      deliveryDate: "May 21, 2025",
+      supplier: "Manufacturing Plant",
+      commodity: "Solar Energy",
+      quantityGwh: 4.1,
+      status: "On Track",
+    },
+    {
+      id: "delivery-may-22-data-center",
+      deliveryDate: "May 22, 2025",
+      supplier: "Data Center 1",
+      commodity: "Wind Energy",
+      quantityGwh: 3.6,
+      status: "At Risk",
+    },
+    {
+      id: "delivery-may-23-logistics-hub",
+      deliveryDate: "May 23, 2025",
+      supplier: "Logistics Hub",
+      commodity: "Solar Energy",
+      quantityGwh: 2.8,
+      status: "On Track",
+    },
+  ] satisfies SupplyDeliveryRow[],
 };

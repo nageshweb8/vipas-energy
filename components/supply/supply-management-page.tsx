@@ -1,11 +1,10 @@
 "use client";
 
-import { Download, Filter } from "lucide-react";
+import { ArrowRight, Download, Filter } from "lucide-react";
 
 import { MultiLineChart } from "@/components/charts/multi-line-chart";
 import { ActionAlertList } from "@/components/dashboard/action-alert-list";
 import { AssistantEntry } from "@/components/dashboard/assistant-entry";
-import { BreakdownCard } from "@/components/dashboard/breakdown-card";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
 import { DataFreshnessIndicator } from "@/components/dashboard/data-freshness-indicator";
 import { ModuleKpiStrip } from "@/components/dashboard/module-kpi-strip";
@@ -62,7 +61,7 @@ export function SupplyManagementPage() {
       <section className="grid gap-4 xl:grid-cols-12">
         <DashboardCard
           title="Supply Fulfillment Trend"
-          className="xl:col-span-8"
+          className="xl:col-span-7"
           headerAction={
             <Button type="button" variant="outline" size="sm">
               Granularity: Daily
@@ -82,18 +81,15 @@ export function SupplyManagementPage() {
           />
         </DashboardCard>
 
-        <BreakdownCard
-          title="Supply by Source"
-          items={supplyData.breakdown}
-          centerLabel="128.5"
-          centerSubtext="GWh\nTotal"
-          actionLabel="View all sources"
-          className="xl:col-span-4"
+        <ActionAlertList
+          title="Risk Alerts"
+          alerts={supplyData.alerts}
+          className="xl:col-span-5"
         />
       </section>
 
       <section className="grid gap-4 xl:grid-cols-12">
-        <DashboardCard title="Supplier Status" className="xl:col-span-7">
+        <DashboardCard title="Supplier Status" className="xl:col-span-6">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[650px] border-collapse text-left text-sm">
               <thead>
@@ -139,11 +135,59 @@ export function SupplyManagementPage() {
           </div>
         </DashboardCard>
 
-        <ActionAlertList
-          title="Risk Alerts"
-          alerts={supplyData.alerts}
-          className="xl:col-span-5"
-        />
+        <DashboardCard title="Upcoming Deliveries" className="xl:col-span-6">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[620px] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-border-default text-muted-foreground border-b text-xs">
+                  <th className="pb-3 font-semibold">Delivery Date</th>
+                  <th className="pb-3 font-semibold">Supplier</th>
+                  <th className="pb-3 font-semibold">Commodity</th>
+                  <th className="pb-3 font-semibold">Quantity</th>
+                  <th className="pb-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {supplyData.deliveries.map((delivery) => (
+                  <tr
+                    key={delivery.id}
+                    className="border-border-default/70 border-b last:border-0"
+                  >
+                    <td className="text-brand-text py-3">
+                      {delivery.deliveryDate}
+                    </td>
+                    <td className="text-brand-secondary py-3 font-semibold">
+                      {delivery.supplier}
+                    </td>
+                    <td className="text-brand-text py-3">
+                      {delivery.commodity}
+                    </td>
+                    <td className="text-brand-text py-3">
+                      {delivery.quantityGwh.toFixed(1)} GWh
+                    </td>
+                    <td className="py-3">
+                      <StatusBadge
+                        variant={statusVariant[delivery.status] ?? "neutral"}
+                      >
+                        {delivery.status}
+                      </StatusBadge>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4">
+            <button
+              type="button"
+              className="text-brand-primary inline-flex items-center gap-2 text-sm font-semibold"
+            >
+              View full schedule
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </button>
+          </div>
+        </DashboardCard>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_24rem]">
