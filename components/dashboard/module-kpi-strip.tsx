@@ -40,7 +40,7 @@ const moduleKpiIconMap: Record<ModuleKpiIcon, LucideIcon> = {
 
 export function ModuleKpiStrip({ kpis }: ModuleKpiStripProps) {
   return (
-    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
       {kpis.map((kpi) => {
         const Icon = moduleKpiIconMap[kpi.icon];
 

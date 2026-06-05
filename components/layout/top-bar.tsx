@@ -60,7 +60,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
       .toUpperCase();
 
   return (
-    <header className="border-border-default bg-surface-white sticky top-0 z-30 flex h-[73px] items-center justify-between gap-3 border-b px-4 sm:px-6 lg:px-8">
+    <header className="border-border-default bg-surface-white sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b px-4 sm:px-5 lg:px-6">
       <div className="flex min-w-0 items-center gap-3">
         <Button
           type="button"
@@ -86,7 +86,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         <Button
           type="button"
           variant="outline"
-          className="text-brand-secondary hidden h-10 gap-2 rounded-lg px-3 sm:inline-flex"
+          className="text-brand-secondary hidden h-9 gap-2 rounded-lg px-3 sm:inline-flex"
         >
           <CalendarDays className="size-4" aria-hidden="true" />
           <span className="hidden md:inline">
@@ -135,9 +135,9 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         </Button>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="hover:bg-brand-mint focus-visible:ring-border-default flex size-12 items-center justify-center rounded-full p-1 outline-hidden transition focus-visible:ring-2">
-            <Avatar className="size-10">
-              <AvatarFallback className="text-base font-semibold">
+          <DropdownMenuTrigger className="hover:bg-brand-mint focus-visible:ring-border-default flex size-11 items-center justify-center rounded-full p-1 outline-hidden transition focus-visible:ring-2">
+            <Avatar className="size-9">
+              <AvatarFallback className="text-sm font-semibold">
                 {displayInitials}
               </AvatarFallback>
             </Avatar>

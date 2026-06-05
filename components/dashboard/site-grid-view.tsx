@@ -17,11 +17,11 @@ const statusVariant: Record<EnergySiteStatus, StatusBadgeVariant> = {
 
 export function SiteGridView({ sites }: SiteGridViewProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+    <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
       {sites.map((site) => (
         <article
           key={site.id}
-          className="border-border-default bg-surface-bg rounded-xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          className="border-border-default bg-surface-bg rounded-xl border p-3.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -38,7 +38,7 @@ export function SiteGridView({ sites }: SiteGridViewProps) {
             </StatusBadge>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
             <div>
               <p className="text-muted-foreground text-xs font-medium">
                 Demand

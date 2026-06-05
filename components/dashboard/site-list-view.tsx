@@ -34,27 +34,27 @@ export function SiteListView({ sites }: SiteListViewProps) {
               key={site.id}
               className="border-border-default/70 border-b last:border-b-0"
             >
-              <td className="py-3.5 pr-4">
+              <td className="py-3 pr-4">
                 <span className="text-brand-secondary font-semibold">
                   {site.name}
                 </span>
               </td>
-              <td className="text-brand-text py-3.5 pr-4">
+              <td className="text-brand-text py-3 pr-4">
                 {site.city}, {site.state}
               </td>
-              <td className="text-brand-secondary py-3.5 pr-4 font-semibold">
+              <td className="text-brand-secondary py-3 pr-4 font-semibold">
                 {site.demandMw.toFixed(1)}
               </td>
-              <td className="text-brand-text py-3.5 pr-4">
+              <td className="text-brand-text py-3 pr-4">
                 {site.portfolioSharePercent.toFixed(1)}%
               </td>
-              <td className="text-brand-text py-3.5 pr-4">{site.meterCount}</td>
-              <td className="py-3.5 pr-4">
+              <td className="text-brand-text py-3 pr-4">{site.meterCount}</td>
+              <td className="py-3 pr-4">
                 <StatusBadge variant={statusVariant[site.status]}>
                   {site.status}
                 </StatusBadge>
               </td>
-              <td className="text-muted-foreground py-3.5">
+              <td className="text-muted-foreground py-3">
                 {site.lastUpdatedLabel}
               </td>
             </tr>

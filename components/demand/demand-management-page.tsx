@@ -71,10 +71,10 @@ export function DemandManagementPage() {
   const data = demandDashboardData;
 
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
+      <section className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
-          <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
             Demand Management
           </h1>
           <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
@@ -84,18 +84,18 @@ export function DemandManagementPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" className="h-10 gap-2">
+          <Button type="button" variant="outline" className="h-9 gap-2">
             <Filter className="size-4" aria-hidden="true" />
             Filters
           </Button>
-          <Button type="button" className="h-10 gap-2">
+          <Button type="button" className="h-9 gap-2">
             <Download className="size-4" aria-hidden="true" />
             Export
           </Button>
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {data.kpis.map((kpi) => {
           const Icon = kpiIcons[kpi.icon];
 
@@ -117,7 +117,7 @@ export function DemandManagementPage() {
         })}
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Demand Trend"
           className="xl:col-span-8"
@@ -183,7 +183,7 @@ export function DemandManagementPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Anomalies & Alerts"
           className="xl:col-span-5"
@@ -197,12 +197,12 @@ export function DemandManagementPage() {
             </button>
           }
         >
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {data.alerts.map((alert) => (
               <article
                 key={alert.id}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg border p-3",
+                  "flex items-center gap-3 rounded-lg border p-2.5",
                   alert.severity === "High" && "border-danger/10 bg-danger/5",
                   alert.severity === "Medium" &&
                     "border-warning/10 bg-warning/5",
@@ -267,18 +267,18 @@ export function DemandManagementPage() {
                     key={site.id}
                     className="border-border-default/70 border-b last:border-0"
                   >
-                    <td className="text-brand-secondary py-3 font-semibold">
+                    <td className="text-brand-secondary py-2.5 font-semibold">
                       {site.site}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {site.totalDemandMwh.toFixed(1)}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {site.percentageOfTotal.toFixed(1)}%
                     </td>
                     <td
                       className={cn(
-                        "py-3 font-semibold",
+                        "py-2.5 font-semibold",
                         site.deltaPercent >= 0 ? "text-success" : "text-danger",
                       )}
                     >
@@ -291,12 +291,12 @@ export function DemandManagementPage() {
                         {Math.abs(site.deltaPercent).toFixed(1)}%
                       </span>
                     </td>
-                    <td className="py-3">
+                    <td className="py-2.5">
                       <StatusBadge variant={siteStatusVariant[site.status]}>
                         {site.status}
                       </StatusBadge>
                     </td>
-                    <td className="py-3 text-right">
+                    <td className="py-2.5 text-right">
                       <TrendingUp
                         className="text-brand-primary ml-auto size-5"
                         aria-hidden="true"
@@ -310,7 +310,7 @@ export function DemandManagementPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <DataFreshnessIndicator
           timezoneLabel={data.timezoneLabel}
           refreshedLabel={data.refreshedLabel}
@@ -335,7 +335,7 @@ export function DemandManagementPage() {
             key={prompt.id}
             type="button"
             onClick={() => dispatch(setAssistantOpen(true))}
-            className="border-border-default bg-surface-white text-brand-secondary hover:border-brand-primary/40 hover:bg-brand-mint flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold shadow-sm transition"
+            className="border-border-default bg-surface-white text-brand-secondary hover:border-brand-primary/40 hover:bg-brand-mint flex items-center justify-between gap-3 rounded-xl border px-4 py-2.5 text-left text-sm font-semibold shadow-sm transition"
           >
             <span>{prompt.label}</span>
             <Badge

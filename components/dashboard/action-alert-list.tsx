@@ -46,12 +46,12 @@ export function ActionAlertList({
         </button>
       }
     >
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {alerts.map((alert) => (
           <article
             key={alert.id}
             className={cn(
-              "flex items-center gap-3 rounded-lg border p-3",
+              "flex items-center gap-3 rounded-lg border p-2.5",
               alert.severity === "High" && "border-danger/10 bg-danger/5",
               alert.severity === "Medium" && "border-warning/10 bg-warning/5",
               (alert.severity === "Low" || alert.severity === "Info") &&

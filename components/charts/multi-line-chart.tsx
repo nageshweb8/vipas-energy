@@ -25,7 +25,7 @@ export function MultiLineChart({
   labels,
   series,
   yAxisName,
-  height = 300,
+  height = 270,
 }: MultiLineChartProps) {
   const appTheme = useAppSelector((state) => state.ui.theme);
   const chartTheme = getChartTheme(appTheme);
@@ -33,10 +33,10 @@ export function MultiLineChart({
   const option: EChartsOption = {
     color: series.map((item) => item.color),
     grid: {
-      top: 42,
+      top: 36,
       right: 18,
-      bottom: 34,
-      left: 42,
+      bottom: 30,
+      left: 40,
     },
     legend: {
       top: 2,

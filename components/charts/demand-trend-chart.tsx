@@ -22,9 +22,9 @@ export function DemandTrendChart({ data }: DemandTrendChartProps) {
   const option: EChartsOption = {
     color: [chartTheme.primary, chartTheme.info, chartTheme.neutral],
     grid: {
-      top: 42,
+      top: 36,
       right: 18,
-      bottom: 34,
+      bottom: 30,
       left: 38,
     },
     legend: {
@@ -125,5 +125,5 @@ export function DemandTrendChart({ data }: DemandTrendChartProps) {
     ],
   };
 
-  return <BaseChart option={option} height={300} />;
+  return <BaseChart option={option} height={270} />;
 }

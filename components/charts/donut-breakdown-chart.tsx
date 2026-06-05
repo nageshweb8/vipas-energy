@@ -32,7 +32,7 @@ export function DonutBreakdownChart({
   segments,
   centerLabel,
   centerSubtext,
-  height = 260,
+  height = 230,
 }: DonutBreakdownChartProps) {
   const appTheme = useAppSelector((state) => state.ui.theme);
   const chartTheme = getChartTheme(appTheme);

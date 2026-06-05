@@ -61,10 +61,10 @@ const tariffAlertIconTone: Record<string, string> = {
 
 export function RateTariffPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
+      <section className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
-          <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
             Rate & Tariff
           </h1>
           <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
@@ -73,11 +73,11 @@ export function RateTariffPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" className="h-10 gap-2">
+          <Button type="button" variant="outline" className="h-9 gap-2">
             <Filter className="size-4" aria-hidden="true" />
             Filters
           </Button>
-          <Button type="button" className="h-10 gap-2">
+          <Button type="button" className="h-9 gap-2">
             <Download className="size-4" aria-hidden="true" />
             Export
           </Button>
@@ -86,7 +86,7 @@ export function RateTariffPage() {
 
       <ModuleKpiStrip kpis={rateTariffData.kpis} />
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Rate Movement"
           description="Weighted average unit rate across active tariff plans."
@@ -120,7 +120,7 @@ export function RateTariffPage() {
         />
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard title="Tariff Comparison" className="xl:col-span-8">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] border-collapse text-left text-sm">
@@ -141,25 +141,25 @@ export function RateTariffPage() {
                     key={row.id}
                     className="border-border-default/70 border-b last:border-0"
                   >
-                    <td className="text-brand-secondary py-3 font-semibold">
+                    <td className="text-brand-secondary py-2.5 font-semibold">
                       {row.plan}
                     </td>
-                    <td className="text-brand-text py-3">{row.provider}</td>
-                    <td className="text-brand-text py-3">{row.rateType}</td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">{row.provider}</td>
+                    <td className="text-brand-text py-2.5">{row.rateType}</td>
+                    <td className="text-brand-text py-2.5">
                       Rs {row.unitRate.toFixed(2)}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       Rs {row.demandCharge.toFixed(0)}
                     </td>
-                    <td className="py-3">
+                    <td className="py-2.5">
                       <StatusBadge
                         variant={statusVariant[row.status] ?? "neutral"}
                       >
                         {row.status}
                       </StatusBadge>
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {row.effectiveDate}
                     </td>
                   </tr>
@@ -182,14 +182,14 @@ export function RateTariffPage() {
             </button>
           }
         >
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {rateTariffData.alerts.map((alert) => {
               const AlertIcon = tariffAlertIconMap[alert.id] ?? Info;
 
               return (
                 <article
                   key={alert.id}
-                  className="border-border-default/70 flex items-center gap-3 rounded-lg border p-3"
+                  className="border-border-default/70 flex items-center gap-3 rounded-lg border p-2.5"
                 >
                   <span
                     className={cn(
@@ -219,7 +219,7 @@ export function RateTariffPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Cost Simulation (Next 30 Days)"
           className="xl:col-span-7"
@@ -256,7 +256,7 @@ export function RateTariffPage() {
         </DashboardCard>
 
         <DashboardCard className="xl:col-span-5">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {rateTariffData.costSummary.map((item) => (
               <div key={item.id} className="min-w-0">
                 <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
@@ -283,7 +283,7 @@ export function RateTariffPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <DataFreshnessIndicator
           timezoneLabel={rateTariffData.timezoneLabel}
           refreshedLabel={rateTariffData.refreshedLabel}

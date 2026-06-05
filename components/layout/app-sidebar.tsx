@@ -96,7 +96,7 @@ export function AppSidebar({
     >
       <div
         className={cn(
-          "border-border-default flex h-[73px] shrink-0 items-center border-b px-4",
+          "border-border-default flex h-16 shrink-0 items-center border-b px-4",
           collapsed ? "justify-center" : "justify-start",
         )}
       >
@@ -109,7 +109,7 @@ export function AppSidebar({
           <Image
             src={logoMark}
             alt=""
-            className="size-10 shrink-0 object-contain"
+            className="size-9 shrink-0 object-contain"
             priority
           />
           {!collapsed && (
@@ -121,7 +121,7 @@ export function AppSidebar({
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col">
-        <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-6">
+        <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-4">
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -133,7 +133,7 @@ export function AppSidebar({
                 title={collapsed ? item.label : ""}
                 onClick={handleNavigate}
                 className={cn(
-                  "text-brand-text flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-semibold transition",
+                  "text-brand-text flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-semibold transition",
                   "hover:bg-brand-mint hover:text-brand-secondary",
                   isActive &&
                     "bg-brand-primary text-primary-foreground hover:bg-brand-primary hover:text-primary-foreground shadow-sm",
@@ -147,7 +147,7 @@ export function AppSidebar({
           })}
         </nav>
 
-        <div className="border-border-default shrink-0 border-t px-3 py-5">
+        <div className="border-border-default shrink-0 border-t px-3 py-4">
           {!collapsed && (
             <p className="text-muted-foreground mb-3 px-3 text-xs font-semibold tracking-wide uppercase">
               Conversational UX
@@ -158,7 +158,7 @@ export function AppSidebar({
             title={collapsed ? "Ask Vipas Assistant" : undefined}
             onClick={onAskAssistant}
             className={cn(
-              "text-brand-text hover:bg-brand-mint hover:text-brand-secondary flex h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-semibold transition",
+              "text-brand-text hover:bg-brand-mint hover:text-brand-secondary flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-semibold transition",
               collapsed && "justify-center px-0",
             )}
           >
@@ -178,7 +178,7 @@ export function AppSidebar({
             )}
           </button>
 
-          <div className="mt-3">
+          <div className="mt-2.5">
             <Button
               type="button"
               variant="ghost"
@@ -198,7 +198,7 @@ export function AppSidebar({
           </div>
 
           {!collapsed && (
-            <div className="px-3 pt-4">
+            <div className="px-3 pt-3">
               <div className="text-muted-foreground flex items-center gap-2 text-xs">
                 <Settings className="size-3.5" aria-hidden="true" />
                 Demo workspace

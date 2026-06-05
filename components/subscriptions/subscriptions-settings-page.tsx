@@ -68,7 +68,7 @@ function CardTitleIcon({
   return (
     <span
       className={cn(
-        "flex size-9 shrink-0 items-center justify-center rounded-full",
+        "flex size-8 shrink-0 items-center justify-center rounded-full",
         toneClasses[tone],
       )}
     >
@@ -78,13 +78,13 @@ function CardTitleIcon({
 }
 
 function UsageMeter({ allocation }: { allocation: UsageAllocation }) {
-  const radius = 38;
+  const radius = 34;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (allocation.value / 100) * circumference;
 
   return (
-    <div className="flex min-w-28 flex-col items-center text-center">
-      <div className="relative size-28">
+    <div className="flex min-w-24 flex-col items-center text-center">
+      <div className="relative size-24">
         <svg className="-rotate-90" viewBox="0 0 100 100" aria-hidden="true">
           <circle
             cx="50"
@@ -107,7 +107,7 @@ function UsageMeter({ allocation }: { allocation: UsageAllocation }) {
             className={allocationToneClasses[allocation.tone]}
           />
         </svg>
-        <span className="text-brand-secondary absolute inset-0 flex items-center justify-center text-2xl font-bold">
+        <span className="text-brand-secondary absolute inset-0 flex items-center justify-center text-xl font-bold">
           {allocation.value}%
         </span>
       </div>
@@ -126,7 +126,7 @@ function UsageMeter({ allocation }: { allocation: UsageAllocation }) {
 }
 
 function RoleDistributionChart({ items }: { items: RoleDistributionItem[] }) {
-  const radius = 36;
+  const radius = 34;
   const circumference = 2 * Math.PI * radius;
   const segments = items.reduce<{
     runningOffset: number;
@@ -156,7 +156,7 @@ function RoleDistributionChart({ items }: { items: RoleDistributionItem[] }) {
 
   return (
     <svg
-      className="size-32 -rotate-90"
+      className="size-28 -rotate-90"
       viewBox="0 0 100 100"
       aria-hidden="true"
     >
@@ -199,7 +199,7 @@ function ToggleRow({
   enabled: boolean;
 }) {
   return (
-    <div className="border-border-default/70 flex items-center justify-between gap-4 border-b py-3 last:border-0">
+    <div className="border-border-default/70 flex items-center justify-between gap-4 border-b py-2.5 last:border-0">
       <div className="min-w-0">
         <p className="text-brand-secondary text-sm font-semibold">{label}</p>
         <p className="text-muted-foreground mt-0.5 text-xs leading-5">
@@ -222,7 +222,7 @@ function ToggleRow({
 
 function ConnectorRow({ connector }: { connector: ConnectorCard }) {
   return (
-    <div className="border-border-default/70 flex items-center gap-3 border-b px-3 py-3 last:border-0">
+    <div className="border-border-default/70 flex items-center gap-3 border-b px-3 py-2.5 last:border-0">
       <span
         className={cn(
           "flex w-10 shrink-0 items-center justify-center text-lg font-bold",
@@ -244,9 +244,9 @@ function ConnectorRow({ connector }: { connector: ConnectorCard }) {
 
 export function SubscriptionsSettingsPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
       <section className="max-w-4xl">
-        <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
           Subscriptions & Settings
         </h1>
         <p className="text-brand-text mt-3 max-w-3xl text-sm leading-6 sm:text-base">
@@ -256,7 +256,7 @@ export function SubscriptionsSettingsPage() {
         </p>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-3">
+      <section className="grid gap-4 xl:grid-cols-3">
         <DashboardCard>
           <div className="flex items-center gap-3">
             <CardTitleIcon icon={FileText} />
@@ -265,19 +265,19 @@ export function SubscriptionsSettingsPage() {
             </h2>
           </div>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <p className="text-brand-secondary text-2xl font-bold">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <p className="text-brand-secondary text-xl font-bold">
               {subscriptionsData.planSummary.name}
             </p>
             <StatusBadge variant="success">
               {subscriptionsData.planSummary.status}
             </StatusBadge>
           </div>
-          <p className="text-muted-foreground mt-4 max-w-md text-sm leading-6">
+          <p className="text-muted-foreground mt-3 max-w-md text-sm leading-6">
             {subscriptionsData.planSummary.description}
           </p>
 
-          <div className="mt-8 grid gap-4 text-sm">
+          <div className="mt-5 grid gap-3 text-sm">
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Renewal Date</span>
               <span className="text-brand-primary inline-flex items-center gap-2 text-right font-semibold">
@@ -299,7 +299,7 @@ export function SubscriptionsSettingsPage() {
             </div>
           </div>
 
-          <Button type="button" variant="outline" className="mt-8">
+          <Button type="button" variant="outline" className="mt-6">
             Manage Plan
           </Button>
         </DashboardCard>
@@ -312,13 +312,13 @@ export function SubscriptionsSettingsPage() {
             </h2>
           </div>
 
-          <div className="mt-7 grid gap-5 sm:grid-cols-3 xl:grid-cols-3">
+          <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-3">
             {subscriptionsData.usageAllocation.map((allocation) => (
               <UsageMeter key={allocation.id} allocation={allocation} />
             ))}
           </div>
 
-          <div className="border-info/10 bg-info/5 mt-6 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="border-info/10 bg-info/5 mt-5 flex flex-col gap-3 rounded-xl border p-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-brand-text text-sm">
               <span className="text-brand-secondary block font-semibold">
                 Need more capacity?
@@ -341,10 +341,10 @@ export function SubscriptionsSettingsPage() {
             </h2>
           </div>
 
-          <div className="border-border-default mt-8 grid grid-cols-4 gap-3 border-b pb-5">
+          <div className="border-border-default mt-5 grid grid-cols-4 gap-3 border-b pb-4">
             {subscriptionsData.userPermissions.map((item) => (
               <div key={item.label}>
-                <p className="text-brand-secondary text-2xl font-bold">
+                <p className="text-brand-secondary text-xl font-bold">
                   {item.value}
                 </p>
                 <p className="text-brand-text mt-1 text-sm">{item.label}</p>
@@ -355,9 +355,9 @@ export function SubscriptionsSettingsPage() {
           <p className="text-brand-secondary mt-5 font-semibold">
             Role Distribution
           </p>
-          <div className="mt-4 grid gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
+          <div className="mt-3 grid gap-3 sm:grid-cols-[7rem_minmax(0,1fr)]">
             <RoleDistributionChart items={subscriptionsData.roleDistribution} />
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {subscriptionsData.roleDistribution.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 text-sm">
                   <span
@@ -385,7 +385,7 @@ export function SubscriptionsSettingsPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-3">
+      <section className="grid gap-4 xl:grid-cols-3">
         <DashboardCard>
           <div className="flex items-center gap-3">
             <CardTitleIcon icon={Settings} tone="violet" />
@@ -394,7 +394,7 @@ export function SubscriptionsSettingsPage() {
             </h2>
           </div>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-5 space-y-3">
             {subscriptionsData.workspaceSettings.map((setting) => (
               <div
                 key={setting.label}
@@ -408,7 +408,7 @@ export function SubscriptionsSettingsPage() {
             ))}
           </div>
 
-          <div className="mt-7 flex justify-center">
+          <div className="mt-5 flex justify-center">
             <Button type="button" variant="outline">
               Edit Settings
             </Button>
@@ -434,7 +434,7 @@ export function SubscriptionsSettingsPage() {
             ))}
           </div>
 
-          <div className="mt-6 flex justify-center">
+          <div className="mt-5 flex justify-center">
             <Button type="button" variant="outline">
               Manage Preferences
             </Button>
@@ -455,7 +455,7 @@ export function SubscriptionsSettingsPage() {
             ))}
           </div>
 
-          <div className="mt-5 flex justify-center">
+          <div className="mt-4 flex justify-center">
             <Button type="button" variant="outline">
               Manage Integrations
             </Button>
@@ -494,21 +494,21 @@ export function SubscriptionsSettingsPage() {
                   key={invoice.id}
                   className="border-border-default/70 border-b last:border-0"
                 >
-                  <td className="text-brand-secondary py-3 font-medium">
+                  <td className="text-brand-secondary py-2.5 font-medium">
                     {invoice.id}
                   </td>
-                  <td className="text-brand-text py-3">{invoice.date}</td>
-                  <td className="text-brand-text py-3">{invoice.plan}</td>
-                  <td className="text-brand-text py-3">
+                  <td className="text-brand-text py-2.5">{invoice.date}</td>
+                  <td className="text-brand-text py-2.5">{invoice.plan}</td>
+                  <td className="text-brand-text py-2.5">
                     {invoice.billingCycle}
                   </td>
-                  <td className="text-brand-text py-3">{invoice.amount}</td>
-                  <td className="py-3">
+                  <td className="text-brand-text py-2.5">{invoice.amount}</td>
+                  <td className="py-2.5">
                     <StatusBadge variant="success">
                       {invoice.status}
                     </StatusBadge>
                   </td>
-                  <td className="py-3 text-right">
+                  <td className="py-2.5 text-right">
                     <Button type="button" variant="ghost" size="icon">
                       <Download className="size-4" aria-hidden="true" />
                       <span className="sr-only">Download {invoice.id}</span>

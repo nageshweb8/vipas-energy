@@ -55,11 +55,11 @@ export function KpiCard({
   const TrendIcon = trendIcons[trendDirection];
 
   return (
-    <article className="border-border-default bg-surface-white rounded-xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:p-5">
-      <div className="flex items-start gap-4">
+    <article className="border-border-default bg-surface-white rounded-xl border p-3.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:p-4">
+      <div className="flex items-start gap-3">
         <div
           className={cn(
-            "flex size-12 shrink-0 items-center justify-center rounded-full ring-1",
+            "flex size-10 shrink-0 items-center justify-center rounded-full ring-1",
             toneClasses[tone],
           )}
         >
@@ -68,7 +68,7 @@ export function KpiCard({
         <div className="min-w-0">
           <p className="text-brand-text text-sm font-medium">{label}</p>
           <div className="mt-2 flex flex-wrap items-end gap-x-1.5 gap-y-1">
-            <span className="text-brand-secondary text-2xl font-bold tracking-tight">
+            <span className="text-brand-secondary text-xl font-bold tracking-tight">
               {value}
             </span>
             <span className="text-brand-secondary pb-0.5 text-sm font-semibold">
@@ -78,7 +78,7 @@ export function KpiCard({
           <p className="text-muted-foreground mt-1 text-xs">{caption}</p>
           <div
             className={cn(
-              "mt-3 flex items-center gap-1 text-xs font-semibold",
+              "mt-2 flex items-center gap-1 text-xs font-semibold",
               sentimentClasses[trendSentiment],
             )}
           >

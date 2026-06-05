@@ -17,7 +17,7 @@ const kpiIconMap: Record<DashboardKpiIcon, LucideIcon> = {
 
 export function DashboardKpiStrip({ kpis }: DashboardKpiStripProps) {
   return (
-    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
       {kpis.map((kpi) => {
         const Icon = kpiIconMap[kpi.icon];
 
