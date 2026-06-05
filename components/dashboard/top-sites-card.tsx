@@ -30,11 +30,11 @@ export function TopSitesCard({
       description="Highest current demand across the portfolio footprint."
       {...(className ? { className } : {})}
     >
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {sites.map((site, index) => (
           <article
             key={site.id}
-            className="border-border-default bg-surface-bg flex items-center gap-3 rounded-xl border p-3"
+            className="border-border-default bg-surface-bg flex items-center gap-3 rounded-xl border p-2.5"
           >
             <span className="bg-brand-mint text-brand-secondary flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-bold">
               {index + 1}

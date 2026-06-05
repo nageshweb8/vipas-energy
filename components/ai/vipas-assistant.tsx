@@ -38,7 +38,7 @@ export function VipasAssistant() {
         disableDefaultWidth
         className="border-border-default bg-surface-white w-full max-w-[100vw] gap-0 p-0 sm:w-[42rem] xl:w-[50rem]"
       >
-        <SheetHeader className="border-border-default border-b px-5 py-4">
+        <SheetHeader className="border-border-default border-b px-4 py-3">
           <SheetTitle className="text-brand-secondary flex items-center gap-2">
             <span className="bg-brand-mint text-brand-primary flex size-9 items-center justify-center rounded-full">
               <Image src={logoMark} alt="" className="size-5 object-contain" />
@@ -51,7 +51,7 @@ export function VipasAssistant() {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           <div className="mb-5">
             <p className="text-brand-secondary mb-3 text-sm font-semibold">
               Suggested prompts
@@ -61,7 +61,7 @@ export function VipasAssistant() {
                 <button
                   key={prompt}
                   type="button"
-                  className="border-border-default text-brand-text bg-surface-white hover:border-brand-primary/30 hover:bg-brand-mint flex items-center justify-between gap-3 rounded-lg border px-3 py-3 text-left text-sm transition"
+                  className="border-border-default text-brand-text bg-surface-white hover:border-brand-primary/30 hover:bg-brand-mint flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 text-left text-sm transition"
                 >
                   <span>{prompt}</span>
                   <ArrowRight className="size-4 shrink-0" aria-hidden="true" />
@@ -71,7 +71,7 @@ export function VipasAssistant() {
           </div>
 
           <div className="mb-5 flex justify-end">
-            <div className="bg-brand-mint text-brand-secondary max-w-[85%] rounded-xl px-4 py-3 text-sm font-medium">
+            <div className="bg-brand-mint text-brand-secondary max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm font-medium">
               Why did demand spike on May 16 around 2:30 PM?
             </div>
           </div>
@@ -82,7 +82,7 @@ export function VipasAssistant() {
             </div>
             <DashboardCard
               className="min-w-0 flex-1 shadow-none"
-              contentClassName="space-y-4"
+              contentClassName="space-y-3"
             >
               <p className="text-brand-text text-sm leading-6">
                 Demand peaked at 28.7 MWh due to higher cooling load, increased
@@ -90,7 +90,7 @@ export function VipasAssistant() {
                 assistant will later render this from a controlled chart
                 component payload.
               </p>
-              <div className="border-border-default bg-surface-bg grid gap-3 rounded-lg border p-3 sm:grid-cols-[9rem_minmax(0,1fr)]">
+              <div className="border-border-default bg-surface-bg grid gap-3 rounded-lg border p-2.5 sm:grid-cols-[9rem_minmax(0,1fr)]">
                 <div>
                   <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                     Peak Demand
@@ -137,7 +137,7 @@ export function VipasAssistant() {
           </div>
         </div>
 
-        <div className="border-border-default border-t p-4">
+        <div className="border-border-default border-t p-3.5">
           <div className="border-border-default bg-surface-white flex items-center gap-2 rounded-xl border p-2 shadow-sm">
             <Button type="button" variant="ghost" size="icon">
               <Plus className="size-4" aria-hidden="true" />

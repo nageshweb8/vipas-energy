@@ -27,7 +27,7 @@ export function DashboardCard({
       )}
     >
       {(title || description || headerAction) && (
-        <div className="flex items-start justify-between gap-4 border-b border-transparent px-4 pt-4 sm:px-5">
+        <div className="flex items-start justify-between gap-3 border-b border-transparent px-3.5 pt-3.5 sm:px-4">
           <div className="min-w-0">
             {title && (
               <h2 className="text-brand-secondary text-base font-semibold">
@@ -43,7 +43,7 @@ export function DashboardCard({
           {headerAction && <div className="shrink-0">{headerAction}</div>}
         </div>
       )}
-      <div className={cn("p-4 sm:p-5", contentClassName)}>{children}</div>
+      <div className={cn("p-3.5 sm:p-4", contentClassName)}>{children}</div>
     </section>
   );
 }

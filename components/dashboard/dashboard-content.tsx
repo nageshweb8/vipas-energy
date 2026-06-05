@@ -41,10 +41,10 @@ export function DashboardContent({ data }: DashboardContentProps) {
         : "Review the full portfolio as a structured operational list before drilling into a module workflow.";
 
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
+      <section className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
         <div className="max-w-3xl">
-          <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
             Energy Portfolio Overview
           </h1>
           <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
@@ -59,13 +59,13 @@ export function DashboardContent({ data }: DashboardContentProps) {
           <Button
             type="button"
             variant="outline"
-            className="h-10 gap-2"
+            className="h-9 gap-2"
             disabled
           >
             <Filter className="size-4" aria-hidden="true" />
             Filters
           </Button>
-          <Button type="button" className="h-10 gap-2" disabled>
+          <Button type="button" className="h-9 gap-2" disabled>
             <Download className="size-4" aria-hidden="true" />
             Export
           </Button>
@@ -100,7 +100,7 @@ export function DashboardContent({ data }: DashboardContentProps) {
 
       <DashboardKpiStrip kpis={data.kpis} />
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title={viewTitle}
           description={viewDescription}

@@ -75,10 +75,10 @@ const initiativeStatusClasses: Record<CarbonInitiativeStatus, string> = {
 
 export function CarbonManagementPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
+      <section className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
-          <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
             Carbon Management
           </h1>
           <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
@@ -87,11 +87,11 @@ export function CarbonManagementPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" className="h-10 gap-2">
+          <Button type="button" variant="outline" className="h-9 gap-2">
             <Filter className="size-4" aria-hidden="true" />
             Filters
           </Button>
-          <Button type="button" className="h-10 gap-2">
+          <Button type="button" className="h-9 gap-2">
             <Download className="size-4" aria-hidden="true" />
             Export
           </Button>
@@ -100,7 +100,7 @@ export function CarbonManagementPage() {
 
       <ModuleKpiStrip kpis={carbonData.kpis} />
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Emissions Trend"
           description="Portfolio emissions, intensity, and previous period context."
@@ -134,7 +134,7 @@ export function CarbonManagementPage() {
         />
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Reduction Initiatives"
           className="xl:col-span-4"
@@ -148,7 +148,7 @@ export function CarbonManagementPage() {
             </button>
           }
         >
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {carbonData.initiatives.map((initiative) => {
               const InitiativeIcon =
                 initiativeIconMap[initiative.id] ?? TrendingUp;
@@ -156,7 +156,7 @@ export function CarbonManagementPage() {
               return (
                 <article
                   key={initiative.id}
-                  className="border-border-default bg-surface-bg rounded-xl border p-3"
+                  className="border-border-default bg-surface-bg rounded-xl border p-2.5"
                 >
                   <div className="flex items-start gap-3">
                     <span
@@ -219,11 +219,11 @@ export function CarbonManagementPage() {
         </DashboardCard>
 
         <DashboardCard title="Reporting & Compliance" className="xl:col-span-3">
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {carbonData.reports.map((report) => (
               <article
                 key={report.id}
-                className="border-border-default bg-surface-bg flex items-center gap-3 rounded-xl border p-3"
+                className="border-border-default bg-surface-bg flex items-center gap-3 rounded-xl border p-2.5"
               >
                 <span className="bg-brand-mint text-brand-primary flex size-11 shrink-0 items-center justify-center rounded-full">
                   <FileText className="size-5" aria-hidden="true" />
@@ -279,18 +279,18 @@ export function CarbonManagementPage() {
                     key={row.id}
                     className="border-border-default/70 border-b last:border-0"
                   >
-                    <td className="text-brand-secondary py-3 font-semibold">
+                    <td className="text-brand-secondary py-2.5 font-semibold">
                       {row.site}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {row.emissions.toLocaleString()}
                     </td>
-                    <td className="text-brand-text py-3 font-medium">
+                    <td className="text-brand-text py-2.5 font-medium">
                       {row.intensity.toFixed(2)}
                     </td>
                     <td
                       className={cn(
-                        "py-3 font-semibold",
+                        "py-2.5 font-semibold",
                         row.deltaPercent <= 0 ? "text-success" : "text-danger",
                       )}
                     >
@@ -341,7 +341,7 @@ export function CarbonManagementPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <DataFreshnessIndicator
           timezoneLabel={carbonData.timezoneLabel}
           refreshedLabel={carbonData.refreshedLabel}

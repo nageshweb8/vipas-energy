@@ -111,7 +111,7 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
   });
 
   return (
-    <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_15rem]">
+    <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_15rem]">
       <div className="border-border-default from-brand-mint/45 via-surface-white to-surface-bg relative overflow-hidden rounded-xl border bg-gradient-to-br shadow-sm">
         <div className="from-surface-white/80 absolute inset-x-0 top-0 h-24 bg-gradient-to-b to-transparent" />
         <div className="text-brand-secondary bg-surface-white/80 pointer-events-none absolute top-4 left-4 z-10 rounded-full px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm">
@@ -255,7 +255,7 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-        <div className="border-border-default bg-surface-bg rounded-xl border p-3">
+        <div className="border-border-default bg-surface-bg rounded-xl border p-2.5">
           <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Coverage
           </p>
@@ -267,7 +267,7 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
           </p>
         </div>
 
-        <div className="border-border-default bg-surface-bg rounded-xl border p-3">
+        <div className="border-border-default bg-surface-bg rounded-xl border p-2.5">
           <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Site Health
           </p>
@@ -299,7 +299,7 @@ export function SiteMapChart({ sites }: SiteMapChartProps) {
           </div>
         </div>
 
-        <div className="border-border-default bg-surface-bg rounded-xl border p-3">
+        <div className="border-border-default bg-surface-bg rounded-xl border p-2.5">
           <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Scan Mode
           </p>

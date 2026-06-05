@@ -97,16 +97,16 @@ function SummaryTile({ item }: { item: AccountSummaryItem }) {
   const Icon = summaryIconMap[item.icon];
 
   return (
-    <article className="border-border-default bg-surface-white rounded-xl border p-4">
+    <article className="border-border-default bg-surface-white rounded-xl border p-3.5">
       <span
         className={cn(
-          "flex size-11 items-center justify-center rounded-full",
+          "flex size-10 items-center justify-center rounded-full",
           summaryToneClasses[item.tone],
         )}
       >
         <Icon className="size-5" aria-hidden="true" />
       </span>
-      <p className="text-brand-secondary mt-5 text-2xl font-bold tracking-tight">
+      <p className="text-brand-secondary mt-4 text-xl font-bold tracking-tight">
         {item.id === "health" ? `${item.value}%` : item.value}
       </p>
       <p className="text-brand-text mt-1 text-sm">{item.label}</p>
@@ -117,7 +117,7 @@ function SummaryTile({ item }: { item: AccountSummaryItem }) {
       )}
       <button
         type="button"
-        className="text-brand-primary mt-5 inline-flex items-center gap-2 text-sm font-semibold"
+        className="text-brand-primary mt-4 inline-flex items-center gap-2 text-sm font-semibold"
       >
         {item.actionLabel}
         <ArrowRight className="size-4" aria-hidden="true" />
@@ -145,7 +145,7 @@ function RoleBadge({ role }: { role: string }) {
   return (
     <span
       className={cn(
-        "inline-flex h-7 items-center rounded-md border px-2.5 text-xs font-semibold",
+        "inline-flex h-6 items-center rounded-md border px-2 text-xs font-semibold",
         roleClasses[role] ?? roleClasses.Viewer,
       )}
     >
@@ -178,7 +178,7 @@ function SecurityRow({ setting }: { setting: AccountSecuritySetting }) {
   const Icon = iconMap[setting.id] ?? ShieldCheck;
 
   return (
-    <div className="border-border-default/70 flex items-start gap-3 border-b py-3 last:border-0">
+    <div className="border-border-default/70 flex items-start gap-3 border-b py-2.5 last:border-0">
       <Icon className="text-muted-foreground mt-1 size-4" aria-hidden="true" />
       <div className="min-w-0 flex-1">
         <p className="text-brand-secondary text-sm font-semibold">
@@ -207,10 +207,10 @@ function ActivityRow({ activity }: { activity: AccountActivity }) {
   const Icon = summaryIconMap[activity.icon];
 
   return (
-    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)_8rem] gap-3 py-2.5">
+    <div className="grid grid-cols-[2rem_minmax(0,1fr)_8rem] gap-3 py-2">
       <span
         className={cn(
-          "flex size-9 items-center justify-center rounded-full",
+          "flex size-8 items-center justify-center rounded-full",
           activityToneClasses[activity.tone],
         )}
       >
@@ -233,9 +233,9 @@ function ActivityRow({ activity }: { activity: AccountActivity }) {
 
 export function ManageAccountPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
       <section className="max-w-4xl">
-        <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
           Manage Account
         </h1>
         <p className="text-brand-text mt-3 max-w-3xl text-sm leading-6 sm:text-base">
@@ -244,8 +244,8 @@ export function ManageAccountPage() {
         </p>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-[minmax(21rem,0.95fr)_minmax(0,1.85fr)]">
-        <div className="flex flex-col gap-5">
+      <section className="grid gap-4 xl:grid-cols-[minmax(21rem,0.95fr)_minmax(0,1.85fr)]">
+        <div className="flex flex-col gap-4">
           <DashboardCard
             title="Company Profile"
             headerAction={
@@ -255,12 +255,12 @@ export function ManageAccountPage() {
               </Button>
             }
           >
-            <div className="flex flex-col gap-5 sm:flex-row">
-              <div className="border-border-default bg-surface-white flex size-28 shrink-0 items-center justify-center rounded-xl border">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="border-border-default bg-surface-white flex size-24 shrink-0 items-center justify-center rounded-xl border">
                 <Image
                   src={logoMark}
                   alt=""
-                  className="size-20 object-contain"
+                  className="size-16 object-contain"
                   priority
                 />
               </div>
@@ -274,7 +274,7 @@ export function ManageAccountPage() {
               </div>
             </div>
 
-            <div className="mt-7 grid gap-4">
+            <div className="mt-5 grid gap-3.5">
               {accountData.details.map((detail) => (
                 <DetailRow key={detail.label} detail={detail} />
               ))}
@@ -293,10 +293,10 @@ export function ManageAccountPage() {
               </button>
             }
           >
-            <div className="space-y-5">
+            <div className="space-y-4">
               {accountData.billingContacts.map((contact) => (
                 <div key={contact.id} className="flex items-start gap-3">
-                  <span className="bg-muted text-brand-text flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
+                  <span className="bg-muted text-brand-text flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
                     {contact.initials}
                   </span>
                   <div className="min-w-0">
@@ -328,9 +328,9 @@ export function ManageAccountPage() {
           </DashboardCard>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           <DashboardCard title="Account Summary">
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {accountData.summaryItems.map((item) => (
                 <SummaryTile key={item.id} item={item} />
               ))}
@@ -375,7 +375,7 @@ export function ManageAccountPage() {
                       key={user.id}
                       className="border-border-default/70 border-b last:border-0"
                     >
-                      <td className="py-3">
+                      <td className="py-2.5">
                         <div className="flex items-center gap-3">
                           <span className="bg-muted text-brand-text flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
                             {user.initials}
@@ -385,17 +385,17 @@ export function ManageAccountPage() {
                           </span>
                         </div>
                       </td>
-                      <td className="text-brand-text py-3">{user.email}</td>
-                      <td className="py-3">
+                      <td className="text-brand-text py-2.5">{user.email}</td>
+                      <td className="py-2.5">
                         <RoleBadge role={user.role} />
                       </td>
-                      <td className="py-3">
+                      <td className="py-2.5">
                         <StatusDot status={user.status} />
                       </td>
-                      <td className="text-brand-text py-3">
+                      <td className="text-brand-text py-2.5">
                         {user.lastActive}
                       </td>
-                      <td className="py-3 text-right">
+                      <td className="py-2.5 text-right">
                         <Button type="button" variant="ghost" size="icon">
                           <MoreVertical className="size-4" aria-hidden="true" />
                           <span className="sr-only">User actions</span>
@@ -408,7 +408,7 @@ export function ManageAccountPage() {
             </div>
           </DashboardCard>
 
-          <section className="grid gap-5 lg:grid-cols-2">
+          <section className="grid gap-4 lg:grid-cols-2">
             <DashboardCard
               title="Security Settings"
               headerAction={

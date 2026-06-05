@@ -33,10 +33,10 @@ const statusVariant: Partial<Record<OperationalStatus, StatusBadgeVariant>> = {
 
 export function SupplyManagementPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-5 lg:px-6">
+      <section className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
-          <h1 className="text-brand-secondary text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-brand-secondary text-2xl font-bold tracking-tight sm:text-3xl">
             Supply Management
           </h1>
           <p className="text-brand-text mt-3 max-w-2xl text-sm leading-6 sm:text-base">
@@ -45,11 +45,11 @@ export function SupplyManagementPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" className="h-10 gap-2">
+          <Button type="button" variant="outline" className="h-9 gap-2">
             <Filter className="size-4" aria-hidden="true" />
             Filters
           </Button>
-          <Button type="button" className="h-10 gap-2">
+          <Button type="button" className="h-9 gap-2">
             <Download className="size-4" aria-hidden="true" />
             Export
           </Button>
@@ -58,7 +58,7 @@ export function SupplyManagementPage() {
 
       <ModuleKpiStrip kpis={supplyData.kpis} />
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard
           title="Supply Fulfillment Trend"
           className="xl:col-span-7"
@@ -88,7 +88,7 @@ export function SupplyManagementPage() {
         />
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-12">
+      <section className="grid gap-3 xl:grid-cols-12">
         <DashboardCard title="Supplier Status" className="xl:col-span-6">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[650px] border-collapse text-left text-sm">
@@ -108,20 +108,22 @@ export function SupplyManagementPage() {
                     key={row.id}
                     className="border-border-default/70 border-b last:border-0"
                   >
-                    <td className="text-brand-secondary py-3 font-semibold">
+                    <td className="text-brand-secondary py-2.5 font-semibold">
                       {row.supplier}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {row.committedGwh.toFixed(1)} GWh
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {row.deliveredGwh.toFixed(1)} GWh
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {row.fulfillmentPercent.toFixed(1)}%
                     </td>
-                    <td className="text-brand-text py-3">{row.contractEnd}</td>
-                    <td className="py-3">
+                    <td className="text-brand-text py-2.5">
+                      {row.contractEnd}
+                    </td>
+                    <td className="py-2.5">
                       <StatusBadge
                         variant={statusVariant[row.status] ?? "neutral"}
                       >
@@ -153,19 +155,19 @@ export function SupplyManagementPage() {
                     key={delivery.id}
                     className="border-border-default/70 border-b last:border-0"
                   >
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {delivery.deliveryDate}
                     </td>
-                    <td className="text-brand-secondary py-3 font-semibold">
+                    <td className="text-brand-secondary py-2.5 font-semibold">
                       {delivery.supplier}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {delivery.commodity}
                     </td>
-                    <td className="text-brand-text py-3">
+                    <td className="text-brand-text py-2.5">
                       {delivery.quantityGwh.toFixed(1)} GWh
                     </td>
-                    <td className="py-3">
+                    <td className="py-2.5">
                       <StatusBadge
                         variant={statusVariant[delivery.status] ?? "neutral"}
                       >
@@ -190,7 +192,7 @@ export function SupplyManagementPage() {
         </DashboardCard>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <DataFreshnessIndicator
           timezoneLabel={supplyData.timezoneLabel}
           refreshedLabel={supplyData.refreshedLabel}
