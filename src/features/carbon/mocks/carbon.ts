@@ -17,7 +17,7 @@ export const carbonData = {
       unit: "tCO2e",
       caption: "Portfolio emissions this period",
       trendValue: "3.2%",
-      trendLabel: "vs May 5 - May 11",
+      trendLabel: "vs July 5 - July 11",
       trendDirection: "up",
       trendSentiment: "negative",
       tone: "green",
@@ -64,13 +64,13 @@ export const carbonData = {
     },
   ] satisfies ModuleKpi[],
   trendLabels: [
-    "May 12",
-    "May 13",
-    "May 14",
-    "May 15",
-    "May 16",
-    "May 17",
-    "May 18",
+    "July 12",
+    "July 13",
+    "July 14",
+    "July 15",
+    "July 16",
+    "July 17",
+    "July 18",
   ],
   trendSeries: [
     {
@@ -147,7 +147,7 @@ export const carbonData = {
     {
       id: "sustainability-report-q1-2025",
       title: "Sustainability Report (Q1 2025)",
-      detail: "Generated on Apr 15, 2025",
+      detail: "Generated on May  15, 2025",
     },
     {
       id: "ghg-inventory-fy-2024",

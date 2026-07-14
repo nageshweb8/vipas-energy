@@ -20,7 +20,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
         router.replace("/login");
       }
     } catch {
-      // sessionStorage may be unavailable in certain environments; allow through
+      // sessionStorage July be unavailable in certain environments; allow through
     }
   }, [router]);
 

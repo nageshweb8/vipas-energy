@@ -12,7 +12,7 @@ export const supplyData = {
       unit: "",
       caption: "Committed suppliers in staged coverage",
       trendValue: "14.3%",
-      trendLabel: "vs Apr 28 - May 11",
+      trendLabel: "vs May  28 - July 11",
       trendDirection: "up",
       trendSentiment: "positive",
       tone: "green",
@@ -38,7 +38,7 @@ export const supplyData = {
       unit: "GWh",
       caption: "Committed energy awaiting delivery",
       trendValue: "8.6%",
-      trendLabel: "vs Apr 28 - May 11",
+      trendLabel: "vs May  28 - July 11",
       trendDirection: "up",
       trendSentiment: "positive",
       tone: "blue",
@@ -59,13 +59,13 @@ export const supplyData = {
     },
   ] satisfies ModuleKpi[],
   trendLabels: [
-    "May 12",
-    "May 13",
-    "May 14",
-    "May 15",
-    "May 16",
-    "May 17",
-    "May 18",
+    "July 12",
+    "July 13",
+    "July 14",
+    "July 15",
+    "July 16",
+    "July 17",
+    "July 18",
   ],
   trendSeries: [
     {
@@ -160,7 +160,7 @@ export const supplyData = {
   deliveries: [
     {
       id: "delivery-may-19-solar-alpha",
-      deliveryDate: "May 19, 2025",
+      deliveryDate: "July 19, 2025",
       supplier: "Solar Park Alpha",
       commodity: "Solar Energy",
       quantityGwh: 6.4,
@@ -168,7 +168,7 @@ export const supplyData = {
     },
     {
       id: "delivery-may-20-wind-beta",
-      deliveryDate: "May 20, 2025",
+      deliveryDate: "July 20, 2025",
       supplier: "Wind Farm Beta",
       commodity: "Wind Energy",
       quantityGwh: 5.2,
@@ -176,7 +176,7 @@ export const supplyData = {
     },
     {
       id: "delivery-may-21-manufacturing-plant",
-      deliveryDate: "May 21, 2025",
+      deliveryDate: "July 21, 2025",
       supplier: "Manufacturing Plant",
       commodity: "Solar Energy",
       quantityGwh: 4.1,
@@ -184,7 +184,7 @@ export const supplyData = {
     },
     {
       id: "delivery-may-22-data-center",
-      deliveryDate: "May 22, 2025",
+      deliveryDate: "July 22, 2025",
       supplier: "Data Center 1",
       commodity: "Wind Energy",
       quantityGwh: 3.6,
@@ -192,7 +192,7 @@ export const supplyData = {
     },
     {
       id: "delivery-may-23-logistics-hub",
-      deliveryDate: "May 23, 2025",
+      deliveryDate: "July 23, 2025",
       supplier: "Logistics Hub",
       commodity: "Solar Energy",
       quantityGwh: 2.8,
