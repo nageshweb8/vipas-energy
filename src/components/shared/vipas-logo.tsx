@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import logoMark from "@/public/brand/vipas-energy-logo.png";
+import logoMark from "@public/brand/vipas-energy-logo.png";
 import { cn } from "@/lib/utils";
 
 interface VipasLogoProps {

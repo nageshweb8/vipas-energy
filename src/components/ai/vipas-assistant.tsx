@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowRight, BarChart3, FileText, Plus } from "lucide-react";
 
-import logoMark from "@/public/brand/vipas-energy-logo.png";
+import logoMark from "@public/brand/vipas-energy-logo.png";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
