@@ -1,4 +1,4 @@
-import { ManageAccountPage } from "@/components/account/manage-account-page";
+import { ManageAccountPage } from "@/features/account";
 
 export default function AccountPage() {
   return <ManageAccountPage />;

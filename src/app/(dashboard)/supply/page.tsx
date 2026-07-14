@@ -1,4 +1,4 @@
-import { SupplyManagementPage } from "@/components/supply/supply-management-page";
+import { SupplyManagementPage } from "@/features/supply";
 
 export default function SupplyPage() {
   return <SupplyManagementPage />;

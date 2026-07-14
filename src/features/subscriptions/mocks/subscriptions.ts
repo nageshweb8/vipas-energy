@@ -1,0 +1,182 @@
+import type {
+  ConnectorCard,
+  InvoiceRow,
+  RoleDistributionItem,
+  UsageAllocation,
+} from "../models";
+
+export const subscriptionsData = {
+  planSummary: {
+    name: "Enterprise Plan",
+    status: "Active",
+    description:
+      "Powering your operations with advanced analytics, automations, and enterprise-grade security.",
+    renewalDate: "Jun 12, 2025 (24 days left)",
+    billingCycle: "Annual",
+    amount: "Rs 4,80,000 / year",
+  },
+  usageAllocation: [
+    {
+      id: "users",
+      label: "Users",
+      value: 72,
+      usedLabel: "36 of 50",
+      actionLabel: "View details",
+      tone: "green",
+    },
+    {
+      id: "api-calls",
+      label: "API Calls",
+      value: 58,
+      usedLabel: "580K of 1M",
+      actionLabel: "View details",
+      tone: "blue",
+    },
+    {
+      id: "storage",
+      label: "Data Storage",
+      value: 65,
+      usedLabel: "195 GB of 300 GB",
+      actionLabel: "View details",
+      tone: "violet",
+    },
+  ] satisfies UsageAllocation[],
+  userPermissions: [
+    { label: "Total Users", value: "36" },
+    { label: "Active", value: "28" },
+    { label: "Invited", value: "6" },
+    { label: "Inactive", value: "2" },
+  ],
+  roleDistribution: [
+    {
+      id: "admins",
+      role: "Workspace Admins",
+      count: 5,
+      percentage: 13.9,
+      tone: "green",
+    },
+    {
+      id: "managers",
+      role: "Managers",
+      count: 11,
+      percentage: 30.6,
+      tone: "blue",
+    },
+    {
+      id: "analysts",
+      role: "Analysts",
+      count: 15,
+      percentage: 41.7,
+      tone: "violet",
+    },
+    {
+      id: "viewers",
+      role: "Viewers",
+      count: 5,
+      percentage: 13.9,
+      tone: "neutral",
+    },
+  ] satisfies RoleDistributionItem[],
+  workspaceSettings: [
+    { label: "Workspace Name", value: "Vipas Energy Operations" },
+    { label: "Workspace ID", value: "vipas-ops-001" },
+    { label: "Time Zone", value: "Asia/Kolkata (UTC +05:30)" },
+    { label: "Currency", value: "INR (Rs)" },
+    { label: "Date Format", value: "DD MMM YYYY" },
+    { label: "Language", value: "English (US)" },
+  ],
+  notifications: [
+    {
+      label: "Email Notifications",
+      description: "Receive important alerts and updates via email",
+      enabled: true,
+    },
+    {
+      label: "In-app Notifications",
+      description: "Show alerts and messages within the application",
+      enabled: true,
+    },
+    {
+      label: "Weekly Digest",
+      description: "Summary of key metrics and activity, every Monday",
+      enabled: true,
+    },
+    {
+      label: "Marketing Updates",
+      description: "Product updates, new features, and tips",
+      enabled: false,
+    },
+  ],
+  connectors: [
+    {
+      id: "google-workspace",
+      name: "Google Workspace",
+      description: "Docs and report package export workspace.",
+      status: "Connected",
+      category: "Productivity",
+    },
+    {
+      id: "microsoft-365",
+      name: "Microsoft 365",
+      description: "Office documents, calendar, and stakeholder delivery.",
+      status: "Connected",
+      category: "Productivity",
+    },
+    {
+      id: "slack",
+      name: "Slack",
+      description: "Alert routing and operational notifications.",
+      status: "Connected",
+      category: "Messaging",
+    },
+    {
+      id: "aws-s3",
+      name: "AWS S3",
+      description: "Document, extract, and report file storage.",
+      status: "Connected",
+      category: "Storage",
+    },
+  ] satisfies ConnectorCard[],
+  additionalConnectors: [
+    {
+      id: "vipas-rate-db",
+      name: "Vipas Rate DB",
+      description: "Rate and tariff comparison intelligence.",
+      status: "Enabled",
+      category: "Data Product",
+    },
+    {
+      id: "accuweather",
+      name: "AccuWeather",
+      description: "Approved public weather source for demand context.",
+      status: "Open",
+      category: "Public Source",
+    },
+  ] satisfies ConnectorCard[],
+  invoices: [
+    {
+      id: "INV-2025-0012",
+      date: "May 12, 2025",
+      plan: "Enterprise Plan",
+      billingCycle: "Annual",
+      amount: "Rs 4,80,000",
+      status: "Paid",
+    },
+    {
+      id: "INV-2024-0012",
+      date: "May 12, 2024",
+      plan: "Enterprise Plan",
+      billingCycle: "Annual",
+      amount: "Rs 4,80,000",
+      status: "Paid",
+    },
+    {
+      id: "INV-2023-0012",
+      date: "May 12, 2023",
+      plan: "Enterprise Plan",
+      billingCycle: "Annual",
+      amount: "Rs 4,20,000",
+      status: "Paid",
+    },
+  ] satisfies InvoiceRow[],
+};

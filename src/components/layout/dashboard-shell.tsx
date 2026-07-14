@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { VipasAssistant } from "@/components/ai/vipas-assistant";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { TopBar } from "@/components/layout/top-bar";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -15,10 +14,11 @@ import {
 import { cn } from "@/lib/utils";
 
 interface DashboardShellProps {
+  assistant: React.ReactNode;
   children: React.ReactNode;
 }
 
-export function DashboardShell({ children }: DashboardShellProps) {
+export function DashboardShell({ assistant, children }: DashboardShellProps) {
   const dispatch = useAppDispatch();
   const sidebarCollapsed = useAppSelector((state) => state.ui.sidebarCollapsed);
   const theme = useAppSelector((state) => state.ui.theme);
@@ -93,7 +93,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
         {children}
       </div>
 
-      <VipasAssistant />
+      {assistant}
     </div>
   );
 }

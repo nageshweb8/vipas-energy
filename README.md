@@ -53,7 +53,15 @@ src/app/
     account/
 src/components/
   ui/                   # shadcn/ui primitives
-  shared/               # Shared layout helpers
+  shared/               # Reusable application building blocks
+  layout/               # Shared application shell components
+  charts/               # Reusable chart wrappers
+src/features/
+  <feature>/
+    components/         # Domain-owned UI
+    mocks/              # Domain-owned stub data
+    models/             # Domain-owned TypeScript models
+    index.ts            # Public feature entry point
 src/store/
   slices/               # Redux state slices
   api/                  # RTK Query base API

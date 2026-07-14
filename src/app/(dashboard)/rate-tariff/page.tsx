@@ -1,4 +1,4 @@
-import { RateTariffPage } from "@/components/rate-tariff/rate-tariff-page";
+import { RateTariffPage } from "@/features/rate-tariff";
 
 export default function RateTariffPageRoute() {
   return <RateTariffPage />;

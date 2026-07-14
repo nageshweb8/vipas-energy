@@ -48,7 +48,8 @@ Vipas Energy is a production-ready frontend for a private authenticated energy-m
 
 - Keep components small and composable.
 - Prefer shared primitives over copy-pasted markup.
-- Keep route files thin; move reusable UI into `src/components/` and data logic into `src/store/`.
+- Keep route files thin; import feature page components through `src/features/<feature>/index.ts`.
+- Keep reusable UI in `src/components/`, domain-owned code in `src/features/`, and shared Redux infrastructure in `src/store/`.
 - Prefer semantic Tailwind token classes over raw color literals.
 - Keep placeholder/demo state clearly separated from production state transitions.
 

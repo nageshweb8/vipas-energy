@@ -6,7 +6,7 @@ import { BaseChart } from "@/components/charts/base-chart";
 import { getChartTheme } from "@/components/charts/chart-theme";
 import { chartColors } from "@/lib/tokens";
 import { useAppSelector } from "@/store/hooks";
-import type { BarComparisonItem } from "@/types/energy-modules";
+import type { BarComparisonItem } from "@/types/energy";
 
 interface BarComparisonChartProps {
   items: BarComparisonItem[];

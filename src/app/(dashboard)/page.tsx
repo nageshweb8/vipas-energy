@@ -1,5 +1,4 @@
-import { DashboardContent } from "@/components/dashboard/dashboard-content";
-import { dashboardData } from "@/lib/stub/dashboard";
+import { DashboardContent, dashboardData } from "@/features/dashboard";
 
 export default function DashboardOverviewPage() {
   return <DashboardContent data={dashboardData} />;
