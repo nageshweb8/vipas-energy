@@ -30,11 +30,13 @@ npm run build
 
 ## Architecture Rules
 
-- Keep routing in `app/` using the App Router. Use route groups such as `(dashboard)` and `(auth)` when they help structure layouts without changing URLs.
-- Keep root concerns in `app/layout.tsx`: fonts, global CSS, and providers only.
-- Keep design tokens in `app/globals.css` and `lib/tokens.ts`. Reuse token names instead of introducing ad-hoc hex values in components.
-- Keep shared UI primitives in `components/ui` and lightweight shared building blocks in `components/shared`.
-- Keep app state in Redux slices under `store/slices` and API access through `store/api/baseApi.ts` plus `injectEndpoints()` domain files.
+- Keep routing in `src/app/` using the App Router. Use route groups such as `(dashboard)` and `(auth)` when they help structure layouts without changing URLs.
+- Keep root concerns in `src/app/layout.tsx`: fonts, global CSS, and providers only.
+- Keep design tokens in `src/app/globals.css` and `src/lib/tokens.ts`. Reuse token names instead of introducing ad-hoc hex values in components.
+- Keep shared UI primitives in `src/components/ui` and lightweight shared building blocks in `src/components/shared`.
+- Keep domain-owned components, models, mocks, and future API modules under `src/features/<feature>`, with `src/features/<feature>/index.ts` as the public feature entry point.
+- Do not deep-import one feature from another. Shared components must not depend on feature modules.
+- Keep app state in Redux slices under `src/store/slices` and API access through `src/store/api/baseApi.ts` plus `injectEndpoints()` domain files.
 - Frontend consumes backend GET APIs through RTK Query. Backend owns staging/reporting tables, tenant scoping, and data preparation.
 - Use Apache ECharts only through shared chart wrappers and theme/registry files once chart work begins.
 

@@ -18,10 +18,10 @@ Vipas Energy is a production-ready frontend for a private authenticated energy-m
 
 ## Current Architecture Boundaries
 
-- App routing lives under `app/(dashboard)` and `app/(auth)`.
+- App routing lives under `src/app/(dashboard)` and `src/app/(auth)`.
 - Root layout owns fonts, global CSS, and providers only.
-- Design tokens live in `app/globals.css` and `lib/tokens.ts`.
-- Global state lives in `store/slices`; API access starts from `store/api/baseApi.ts`.
+- Design tokens live in `src/app/globals.css` and `src/lib/tokens.ts`.
+- Global state lives in `src/store/slices`; API access starts from `src/store/api/baseApi.ts`.
 - Placeholder routes exist, but the dashboard shell, widgets, and domain APIs are not implemented yet.
 - Backend owns ETL, reporting/staging tables, and API payload generation. Frontend owns rendering, state, routing, and API consumption.
 
@@ -29,7 +29,7 @@ Vipas Energy is a production-ready frontend for a private authenticated energy-m
 
 - Preserve the App Router structure and route groups.
 - Use strict TypeScript with explicit interfaces and narrow types.
-- Reuse brand tokens through Tailwind utilities and `lib/tokens.ts`.
+- Reuse brand tokens through Tailwind utilities and `src/lib/tokens.ts`.
 - Use RTK Query for application data fetching and endpoint injection.
 - Keep future chart work behind shared ECharts wrappers and a single theme/registry.
 - Run validation commands relevant to the change before finishing.
@@ -48,7 +48,8 @@ Vipas Energy is a production-ready frontend for a private authenticated energy-m
 
 - Keep components small and composable.
 - Prefer shared primitives over copy-pasted markup.
-- Keep route files thin; move reusable UI into `components/` and data logic into `store/`.
+- Keep route files thin; import feature page components through `src/features/<feature>/index.ts`.
+- Keep reusable UI in `src/components/`, domain-owned code in `src/features/`, and shared Redux infrastructure in `src/store/`.
 - Prefer semantic Tailwind token classes over raw color literals.
 - Keep placeholder/demo state clearly separated from production state transitions.
 
