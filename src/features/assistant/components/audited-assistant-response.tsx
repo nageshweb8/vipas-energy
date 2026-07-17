@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BarChart3, FileText } from "lucide-react";
 
 import { DashboardCard } from "@/components/shared/dashboard-card";
-import { Button } from "@/components/ui/button";
 import type { AuditedAssistantResponse } from "../models";
 import { formatAssistantDateTime } from "../utils/format-assistant-date";
 import { AgentWorkflow } from "./agent-workflow";
@@ -12,7 +10,7 @@ import { AssistantCitation } from "./assistant-citation";
 import { FreshnessDetails } from "./freshness-details";
 import { SourceList } from "./source-list";
 import {
-  TrustSummary,
+  AssistantResponseFooter,
   trustDetailRegionIds,
   type TrustDetailSection,
 } from "./trust-summary";
@@ -24,6 +22,7 @@ interface AuditedAssistantResponseProps {
   response: AuditedAssistantResponse;
   stage: AuditedResponseRevealStage;
   auditHref: string;
+  onRetry: () => void;
   onViewFullAudit: () => void;
 }
 
@@ -31,6 +30,7 @@ export function AuditedAssistantResponse({
   response,
   stage,
   auditHref,
+  onRetry,
   onViewFullAudit,
 }: AuditedAssistantResponseProps) {
   const [expandedDetail, setExpandedDetail] =
@@ -109,21 +109,12 @@ export function AuditedAssistantResponse({
 
       {responseComplete ? (
         <>
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" type="button">
-              <FileText className="size-4" aria-hidden="true" />
-              Create report
-            </Button>
-            <Button variant="outline" size="sm" type="button">
-              <BarChart3 className="size-4" aria-hidden="true" />
-              View full analysis
-            </Button>
-          </div>
-          <TrustSummary
-            summary={response.trust}
+          <AssistantResponseFooter
+            response={response}
             expandedDetail={expandedDetail}
             auditHref={auditHref}
             onToggleDetail={handleToggleDetail}
+            onRetry={onRetry}
             onViewFullAudit={onViewFullAudit}
           />
           <SourceList

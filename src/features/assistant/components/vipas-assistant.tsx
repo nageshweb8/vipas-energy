@@ -162,6 +162,11 @@ export function VipasAssistant() {
   };
 
   const handleViewFullAudit = () => handleOpenChange(false);
+  const handleRetry = () => {
+    setPhase("processing");
+    setProcessingStatusIndex(0);
+    setRevealStage("summary");
+  };
   const responseVisible = phase === "revealing" || phase === "complete";
 
   return (
@@ -240,6 +245,7 @@ export function VipasAssistant() {
                 response={demoAuditedResponse}
                 stage={phase === "complete" ? "complete" : revealStage}
                 auditHref={demoAssistantAuditHref}
+                onRetry={handleRetry}
                 onViewFullAudit={handleViewFullAudit}
               />
             </div>
