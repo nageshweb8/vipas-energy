@@ -156,7 +156,7 @@ export const subscriptionsData = {
   invoices: [
     {
       id: "INV-2025-0012",
-      date: "May 12, 2025",
+      date: "July 12, 2025",
       plan: "Enterprise Plan",
       billingCycle: "Annual",
       amount: "Rs 4,80,000",
@@ -164,7 +164,7 @@ export const subscriptionsData = {
     },
     {
       id: "INV-2024-0012",
-      date: "May 12, 2024",
+      date: "July 12, 2024",
       plan: "Enterprise Plan",
       billingCycle: "Annual",
       amount: "Rs 4,80,000",
@@ -172,7 +172,7 @@ export const subscriptionsData = {
     },
     {
       id: "INV-2023-0012",
-      date: "May 12, 2023",
+      date: "July 12, 2023",
       plan: "Enterprise Plan",
       billingCycle: "Annual",
       amount: "Rs 4,20,000",

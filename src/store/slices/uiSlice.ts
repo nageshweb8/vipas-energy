@@ -23,8 +23,8 @@ const initialState: UiState = {
   dateRange: {
     from: "2025-05-12",
     to: "2025-05-18",
-    fromLabel: "May 12",
-    toLabel: "May 18, 2025",
+    fromLabel: "July 12",
+    toLabel: "July 18, 2025",
   },
 };
 
